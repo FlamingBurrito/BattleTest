@@ -1,0 +1,10 @@
+e:\visual studio Projects\battleTest\battleTest\bin\Debug\battleTest.exe.config
+e:\visual studio Projects\battleTest\battleTest\bin\Debug\battleTest.exe
+e:\visual studio Projects\battleTest\battleTest\bin\Debug\battleTest.pdb
+e:\visual studio Projects\battleTest\battleTest\obj\Debug\battleTest.csprojResolveAssemblyReference.cache
+e:\visual studio Projects\battleTest\battleTest\obj\Debug\battleTest.Properties.Resources.resources
+e:\visual studio Projects\battleTest\battleTest\obj\Debug\battleTest.csproj.GenerateResource.Cache
+e:\visual studio Projects\battleTest\battleTest\obj\Debug\battleTest.exe
+e:\visual studio Projects\battleTest\battleTest\obj\Debug\battleTest.pdb
+e:\visual studio Projects\battleTest\battleTest\obj\Debug\battleTest.CharacterForm.resources
+e:\visual studio Projects\battleTest\battleTest\obj\Debug\battleTest.battle.resources
