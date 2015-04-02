@@ -31,13 +31,6 @@
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.skillButton1 = new System.Windows.Forms.Button();
             this.skillButton2 = new System.Windows.Forms.Button();
-            this.tbDice = new System.Windows.Forms.TextBox();
-            this.tbSides = new System.Windows.Forms.TextBox();
-            this.bCount = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.tbTarget = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.labelChar1Name = new System.Windows.Forms.Label();
             this.labelChar1Health = new System.Windows.Forms.Label();
             this.labelChar1Energy = new System.Windows.Forms.Label();
@@ -60,20 +53,22 @@
             this.labelChar2Energy = new System.Windows.Forms.Label();
             this.labelChar2Health = new System.Windows.Forms.Label();
             this.labelChar2Name = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // richTextBox1
             // 
             this.richTextBox1.Location = new System.Drawing.Point(12, 12);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(335, 266);
+            this.richTextBox1.Size = new System.Drawing.Size(335, 295);
             this.richTextBox1.TabIndex = 2;
             this.richTextBox1.Text = "";
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // skillButton1
             // 
-            this.skillButton1.Location = new System.Drawing.Point(12, 284);
+            this.skillButton1.Location = new System.Drawing.Point(606, 284);
             this.skillButton1.Name = "skillButton1";
             this.skillButton1.Size = new System.Drawing.Size(75, 23);
             this.skillButton1.TabIndex = 5;
@@ -83,73 +78,12 @@
             // 
             // skillButton2
             // 
-            this.skillButton2.Location = new System.Drawing.Point(93, 284);
+            this.skillButton2.Location = new System.Drawing.Point(687, 284);
             this.skillButton2.Name = "skillButton2";
             this.skillButton2.Size = new System.Drawing.Size(75, 23);
             this.skillButton2.TabIndex = 8;
             this.skillButton2.Text = "Skill two";
             this.skillButton2.UseVisualStyleBackColor = true;
-            // 
-            // tbDice
-            // 
-            this.tbDice.Location = new System.Drawing.Point(362, 258);
-            this.tbDice.Name = "tbDice";
-            this.tbDice.Size = new System.Drawing.Size(27, 20);
-            this.tbDice.TabIndex = 10;
-            this.tbDice.Text = "5";
-            // 
-            // tbSides
-            // 
-            this.tbSides.Location = new System.Drawing.Point(427, 258);
-            this.tbSides.Name = "tbSides";
-            this.tbSides.Size = new System.Drawing.Size(33, 20);
-            this.tbSides.TabIndex = 11;
-            this.tbSides.Text = "10";
-            // 
-            // bCount
-            // 
-            this.bCount.Location = new System.Drawing.Point(362, 284);
-            this.bCount.Name = "bCount";
-            this.bCount.Size = new System.Drawing.Size(128, 23);
-            this.bCount.TabIndex = 12;
-            this.bCount.Text = "custom Roll";
-            this.bCount.UseVisualStyleBackColor = true;
-            this.bCount.Click += new System.EventHandler(this.bCount_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(359, 243);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(30, 13);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "dice:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(424, 242);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(36, 13);
-            this.label2.TabIndex = 14;
-            this.label2.Text = "Sides:";
-            // 
-            // tbTarget
-            // 
-            this.tbTarget.Location = new System.Drawing.Point(506, 258);
-            this.tbTarget.Name = "tbTarget";
-            this.tbTarget.Size = new System.Drawing.Size(38, 20);
-            this.tbTarget.TabIndex = 16;
-            this.tbTarget.Text = "5";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(503, 243);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 13);
-            this.label3.TabIndex = 17;
-            this.label3.Text = "Target:";
             // 
             // labelChar1Name
             // 
@@ -349,11 +283,33 @@
             this.labelChar2Name.TabIndex = 29;
             this.labelChar2Name.Text = "Character two:";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(687, 9);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 40;
+            this.button1.Text = "Character";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(687, 123);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 41;
+            this.button2.Text = "Character";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // battle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(774, 319);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.labelChar2Status);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.labelChar2Spirit);
@@ -376,13 +332,6 @@
             this.Controls.Add(this.labelChar1Energy);
             this.Controls.Add(this.labelChar1Health);
             this.Controls.Add(this.labelChar1Name);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.tbTarget);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.bCount);
-            this.Controls.Add(this.tbSides);
-            this.Controls.Add(this.tbDice);
             this.Controls.Add(this.skillButton2);
             this.Controls.Add(this.skillButton1);
             this.Controls.Add(this.richTextBox1);
@@ -398,13 +347,6 @@
         private System.Windows.Forms.Button skillButton1;
         public System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button skillButton2;
-        private System.Windows.Forms.TextBox tbDice;
-        private System.Windows.Forms.TextBox tbSides;
-        private System.Windows.Forms.Button bCount;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox tbTarget;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label labelChar1Name;
         private System.Windows.Forms.Label labelChar1Health;
         private System.Windows.Forms.Label labelChar1Energy;
@@ -427,5 +369,7 @@
         private System.Windows.Forms.Label labelChar2Energy;
         private System.Windows.Forms.Label labelChar2Health;
         private System.Windows.Forms.Label labelChar2Name;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }

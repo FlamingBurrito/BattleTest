@@ -49,13 +49,21 @@ namespace battleTest
             mainForm.getSkills(currentCharacter);
         }
 
-        public void useSkill(Character c, byte s)
+        public void useSkill(Character c, int s)
         {
             //c.useSkill(s);
             //output(c.name + " used " + c.skills[s] + ".");
             List<Character> targets = new List<Character>();
             targets.Add(allCharacters[0]);
             c.skills[s].use(c,targets);
+            findTurn();
+        }
+
+        public int getTarget()
+        {
+            int selectedTarget = 0;
+
+            return selectedTarget;
         }
 
     }

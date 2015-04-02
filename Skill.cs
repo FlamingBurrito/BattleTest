@@ -18,6 +18,8 @@ namespace battleTest
         public bool isWarm;
 
         public int accuracy;
+        public int criticalRatio;
+        public float criticalDamage;
 
         public string element;			//fire, ice, etc
         public string method;				//melee, physical, ranged, magic
@@ -53,6 +55,8 @@ namespace battleTest
             freeAction = Convert.ToBoolean(currentFile.IniReadValue(skillName, "freeAction"));
             isWarm = Convert.ToBoolean(currentFile.IniReadValue(skillName, "isWarm"));
             accuracy = Convert.ToInt32(currentFile.IniReadValue(skillName, "hitChance"));
+            criticalRatio = Convert.ToInt32(currentFile.IniReadValue(skillName, "criticalRatio"));
+            criticalDamage = float.Parse(currentFile.IniReadValue(skillName, "criticalDamage"));
             attackNumber = Convert.ToInt32(currentFile.IniReadValue(skillName, "attackNumber"));
             element = currentFile.IniReadValue(skillName, "element");
 
@@ -82,7 +86,7 @@ namespace battleTest
 
                 if (args[0].Equals("attack"))
                 {
-                    attack(int.Parse(args[1]), int.Parse(args[2]), args[3], args[4]);
+                    attack(int.Parse(args[1]), int.Parse(args[2]), args[3]);
                 }
                 if (args[0].Equals("addStatus"))
                 {
@@ -203,9 +207,10 @@ useAmmo(status) */
             return true;
         }
 
-        private void attack(int min, int max, string stat, string targetGroup)
+        private void attack(int min, int max, string targetGroup)
         {
-            if (Combat.rollCheck(accuracy, 101)) //accuracy check first
+            int AC = accuracyCheck();
+            if (AC > 0) //accuracy check first
             {
                 switch (targetGroup)
                 {
@@ -214,7 +219,8 @@ useAmmo(status) */
                         {
                             if (c.team != user.team)
                             {
-                                float dmg = Combat.getDamage(min, max, user.tempAttack, c.tempDefense);
+                                float dmg = getDamage();
+                                if (AC == 2) { dmg = criticalHit(dmg); } //critical hit
                                 c.damage(dmg, element, false);
                             }
                         }
@@ -225,7 +231,8 @@ useAmmo(status) */
                         {
                             if (c.team == user.team)
                             {
-                                float dmg = Combat.getDamage(min, max, user.tempAttack, c.tempDefense);
+                                float dmg = getDamage();
+                                if (AC == 2) { dmg = criticalHit(dmg); } //critical hit
                                 c.damage(dmg, element, false);
                             }
                         }
@@ -263,14 +270,14 @@ useAmmo(status) */
             int check = 0;
             float targetNum = ((user.tempAccuracy + accuracy)/targets[0].tempEvasion)*100f;
             if (Combat.rollCheck((int)targetNum, 101)) { check = 1; }
+            if (Combat.rollCheck((int)criticalRatio, 101)) { check = 2; }
             //roll for accuracy, return 1 if hit, 2 if crit            
             return check;
         }
 
         float getDamage()
         {
-            float totalDamage = 0f;
-
+           // float totalDamage = 0f;
             List<int> damageDice = Combat.rollDice(user.tempAttack, 10);
 
             int successes = Combat.countSuccesses(damageDice,targets[0].tempDefense);
@@ -278,12 +285,12 @@ useAmmo(status) */
             float firstDamage = successes * (Combat.rng.Next(minDamage, maxDamage + 1));
             float secondDamage = (firstDamage * user.tempAttack * user.tempAttack) / (user.tempAttack * targets[0].tempDefense);
             //roll for total damage - defense
-            return totalDamage;
+            return secondDamage;
         }
 
         float criticalHit(float dmg)
         {
-            float totalDamage = dmg * user.criticalRatio;
+            float totalDamage = dmg * criticalDamage;
             return totalDamage;
         }
 

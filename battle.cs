@@ -74,28 +74,30 @@ namespace battleTest
             labelChar1Accuracy.Text = "accuracy: "+player.tempAccuracy.ToString();
             labelChar1Attack.Text = "attack: "+player.tempAttack.ToString();
             labelChar1Defense.Text = "defense: "+player.tempDefense.ToString();
-            labelChar1Energy.Text = "energy: "+player.tempStamina.ToString();
+            labelChar1Energy.Text = "energy: "+player.MP.ToString();
             labelChar1Evasion.Text = "evasion: "+player.tempEvasion.ToString();
-            labelChar1Health.Text = "health: "+player.tempHealth.ToString();
+            labelChar1Health.Text = "health: "+player.HP.ToString();
             labelChar1Magic.Text = "magic: "+player.tempSpirit.ToString();
             labelChar1Spirit.Text = "spirit: "+player.tempWill.ToString();
 
             labelChar2Accuracy.Text = "accuracy: " + enemy.tempAccuracy.ToString();
             labelChar2Attack.Text = "attack: " + enemy.tempAttack.ToString();
             labelChar2Defense.Text = "defense: " + enemy.tempDefense.ToString();
-            labelChar2Energy.Text = "energy: " + enemy.tempStamina.ToString();
+            labelChar2Energy.Text = "energy: " + enemy.MP.ToString();
             labelChar2Evasion.Text = "evasion: " + enemy.tempEvasion.ToString();
-            labelChar2Health.Text = "health: " + enemy.tempHealth.ToString();
+            labelChar2Health.Text = "health: " + enemy.HP.ToString();
             labelChar2Magic.Text = "magic: " + enemy.tempSpirit.ToString();
             labelChar2Spirit.Text = "spirit: " + enemy.tempWill.ToString();
             
         }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
             //richTextBox1.Text += BC.currentCharacter.name+" attacked.\n";
             //BC.currentCharacter.useSkill(1);
             BC.useSkill(BC.currentCharacter, 0);
+            setStats();
             //BC.findTurn();
             //richTextBox1.Text += "starting turn " + BC.allCharacters[BC.turnCounter].name+"\n";
         }
@@ -107,15 +109,16 @@ namespace battleTest
         }
 
 
-        private void bCount_Click(object sender, EventArgs e)
+        private void button1_Click_1(object sender, EventArgs e)
         {
-            //Combat.rollDice(5,10);
-            //Combat.countSuccesses(rolls, 5);
-            //Combat.getDamage(Combat.countSuccesses(rolls, 5));            
-            int dice = Convert.ToInt32(tbDice.Text);
-            int sides = Convert.ToInt32(tbSides.Text);
-            int target = Convert.ToInt32(tbTarget.Text);
-            Combat.getDamage(Combat.countSuccesses(Combat.rollDice(dice, sides), target));
+            CharacterForm nForm = new CharacterForm(player);
+            nForm.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            CharacterForm nForm = new CharacterForm(enemy);
+            nForm.Show();
         }
     }
 }

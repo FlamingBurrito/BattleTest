@@ -14,6 +14,8 @@ namespace battleTest
     {
         internal Character player;
 
+        //internal List<Control> resistanceLabels;
+
         public CharacterForm(Character character)
         {
             InitializeComponent();
@@ -21,9 +23,37 @@ namespace battleTest
 
             player = character;
 
+            /*resistanceLabels = new List<Control>();
+            foreach (Control c in this.Controls)
+            {
+                if (c.Name.Contains("Resist")) {
+                    resistanceLabels.Add(c);
+                }
+            }
+            */
             setStats();
+            getWeapons();
+            getEquipment();
+            getResists();
             displayStats();
 
+        }
+
+        private void getWeapons()
+        {
+            weapon1.Text = null;
+            weapon2.Text = null;
+            if (player.weapons.Count > 0) { weapon1.Text = player.weapons[0]; }
+            if (player.weapons.Count > 1) { weapon2.Text = player.weapons[1]; }
+
+        }
+
+        private void getEquipment()
+        {
+            accessory1.Text = null;
+            accessory2.Text = null;
+            if (player.equipment.Count > 0) { accessory1.Text = player.equipment[0]; }
+            if (player.equipment.Count > 1) { accessory2.Text = player.equipment[1]; }
         }
 
         private void setStats()
@@ -40,6 +70,54 @@ namespace battleTest
             PBWill.Value = player.tempWill;
         }
 
+        private void getResists(){
+           /*foreach(var element in player.resistances){
+               foreach (Control c in resistanceLabels)
+               {
+                   if (c.Name.Contains(element.Key))
+                   {
+                       c.Text = element.Value.ToString();
+                   }
+               }
+           }*/
+            foreach (var element in player.resistances)
+            {
+                switch (element.Key)
+                {
+                    case "fire":
+                        fireResist.Text = element.Value.ToString();
+                        break;
+                    case "water":
+                        waterResist.Text = element.Value.ToString();
+                        break;
+                    case "ice":
+                        iceResist.Text = element.Value.ToString();
+                        break;
+                    case "earth":
+                        earthResist.Text = element.Value.ToString();
+                        break;
+                    case "wind":
+                        windResist.Text = element.Value.ToString();
+                        break;
+                    case "electric":
+                        electricResist.Text = element.Value.ToString();
+                        break;
+                    case "poison":
+                        poisonResist.Text = element.Value.ToString();
+                        break;
+                    case "dark":
+                        darkResist.Text = element.Value.ToString();
+                        break;
+                    case "light":
+                        lightResist.Text = element.Value.ToString();
+                        break;
+                    default:
+                        break;
+                 
+                }
+            }
+        }
+
         private void displayStats()
         {
             healthNum.Text = "("+player.tempHealth.ToString()+")";
@@ -53,5 +131,10 @@ namespace battleTest
             evasionNum.Text = "(" + player.tempEvasion.ToString() + ")";
             willNum.Text = "(" + player.tempWill.ToString() + ")";
         }
+
+        private void CharacterForm_MouseLeave(object sender, EventArgs e)
+        {
+            this.Close();
+        } 
     }
 }

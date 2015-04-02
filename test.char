@@ -22,5 +22,6 @@ resistWind=0
 intrinsics=
 status=bleed
 skills=fireball,fireball
+weapons=shortsword,shield
 inventory=shortsword,shield
 equipment=amulet
