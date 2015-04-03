@@ -30,6 +30,11 @@ namespace battleTest
             //start first turn
         }
 
+        public void update()
+        {
+            mainForm.setStats();
+        }
+
         public void findTurn(){
             if(turnCounter == allCharacters.Count-1){
                 turnCounter = 0;
@@ -45,7 +50,7 @@ namespace battleTest
         {
             currentCharacter = allCharacters[turnCounter];
             Combat.output(allCharacters[turnCounter].activateStatus());
-            Combat.output("Beginning turn of " + currentCharacter.name + "...");
+            Combat.output("Beginning turn of " + currentCharacter.Name + "...");
             mainForm.getSkills(currentCharacter);
         }
 
@@ -53,17 +58,23 @@ namespace battleTest
         {
             //c.useSkill(s);
             //output(c.name + " used " + c.skills[s] + ".");
-            List<Character> targets = new List<Character>();
-            targets.Add(allCharacters[0]);
-            c.skills[s].use(c,targets);
-            findTurn();
+            targetDialog targetting = new targetDialog(c.skills[s],mainForm);
+            targetting.Show();
+            //List<Character> targets = new List<Character>();
+            //targets.Add(allCharacters[0]);
+            //c.skills[s].use(c,targets);
+            //findTurn();
         }
 
-        public int getTarget()
+        public void getTargets(Skill sk, List<Character> dialogTargets)
         {
-            int selectedTarget = 0;
-
-            return selectedTarget;
+            Combat.output(dialogTargets.Count.ToString()+" Targets recieved!");
+            if (sk.use(currentCharacter, dialogTargets))
+            {
+                //if the skill was used successfully, find the next turn.
+                update();
+                findTurn();
+            }
         }
 
     }

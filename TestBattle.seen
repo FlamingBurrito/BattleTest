@@ -1,0 +1,6 @@
+[TestBatte]
+title=TestBattle
+players=Bob
+enemies=Goblin,Goblin
+enemies2=Test
+background=forest

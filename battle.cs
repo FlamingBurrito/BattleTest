@@ -32,14 +32,14 @@ namespace battleTest
             rolls = new List<int>();
             findTeams();
 
-            labelChar1Name.Text = player.name;
+            labelChar1Name.Text = player.Name;
             labelChar1Status.Text = "";
             foreach (string s in player.statuses)
             {
                 labelChar1Status.Text += s;
             }
 
-            labelChar2Name.Text = enemy.name;
+            labelChar2Name.Text = enemy.Name;
             labelChar2Status.Text = "";
             foreach (string s in enemy.statuses)
             {
@@ -69,7 +69,7 @@ namespace battleTest
             skillButton2.Text = c.skills[1].skillName;
         }
 
-        void setStats()
+        public void setStats()
         {
             labelChar1Accuracy.Text = "accuracy: "+player.tempAccuracy.ToString();
             labelChar1Attack.Text = "attack: "+player.tempAttack.ToString();

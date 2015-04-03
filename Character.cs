@@ -10,9 +10,9 @@ namespace battleTest
 {
     public class Character
     {
-        internal string name;
+        public string Name { get; set; }
 
-        internal string team;
+        internal string team { get; set; }
 
         internal float attack {get; set;}
         internal float accuracy { get; set; }
@@ -61,7 +61,7 @@ namespace battleTest
             IniFile newFile = new IniFile("../../"+CharFile+".char");
             //string charName = Path.GetFileNameWithoutExtension(newFile.path);
 
-            name = newFile.IniReadValue(CharFile,"name");
+            Name = newFile.IniReadValue(CharFile,"name");
             team = newFile.IniReadValue(CharFile, "team");
             attack = float.Parse(newFile.IniReadValue(CharFile, "attack"));
             accuracy = float.Parse(newFile.IniReadValue(CharFile, "accuracy"));
@@ -182,7 +182,7 @@ namespace battleTest
             foreach(string c in statuses){
                 if (c.Length > 1) 
                 { 
-                returnString += c + " activated on " + name;
+                returnString += c + " activated on " + Name;
                 }
             }
 
@@ -197,7 +197,7 @@ namespace battleTest
         {
             int damage = Convert.ToInt32(Math.Ceiling(dmg));
             HP -= damage;
-            Combat.output("I took " + damage.ToString() + " " + element + " damage!");
+            Combat.output("I,"+Name+", took "+ damage.ToString() + " " + element + " damage!");
         }
 
         public void addStatus(string status)
