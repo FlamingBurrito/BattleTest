@@ -12,12 +12,12 @@ namespace battleTest
 {
     public partial class battle : Form
     {
-        internal Character player = null;
-        internal Character enemy = null;
+        internal List<Character> player;
+        internal List<Character> enemy;
+
+        internal List<string> partyCharacters;
 
         internal BattleControl BC;
-
-        internal List<int> rolls;
 
         public battle()
         {
@@ -25,72 +25,101 @@ namespace battleTest
 
             Combat.setForm(this);
 
-            BC = new BattleControl(this);
 
-            
-
-            rolls = new List<int>();
-            findTeams();
-
-            labelChar1Name.Text = player.Name;
-            labelChar1Status.Text = "";
-            foreach (string s in player.statuses)
-            {
-                labelChar1Status.Text += s;
-            }
-
-            labelChar2Name.Text = enemy.Name;
-            labelChar2Status.Text = "";
-            foreach (string s in enemy.statuses)
-            {
-                labelChar2Status.Text += s;
-            }
+            BC = new BattleControl(this,"TestBattle");
+            findTeams();                         
 
             setStats();
+
         }
 
-        void findTeams()
+        public void findTeams()
         {
-            foreach(Character c in BC.allCharacters){
-                if (c.team == "player")
+            player = new List<Character>();
+            enemy = new List<Character>();
+
+            for (int c = 0; c < BC.allCharacters.Count; c++)
+            {
+                if (BC.allCharacters[c].team == "player")
                 {
-                    player = c;
+                    Console.WriteLine("Adding " + BC.allCharacters[c].Name + " to players team");
+                    player.Add(BC.allCharacters[c]);
                 }
                 else
                 {
-                    enemy = c;
+                    enemy.Add(BC.allCharacters[c]);
                 }
             }
         }
 
         public void getSkills(Character c)
         {
-            skillButton1.Text = c.skills[0].skillName;
-            skillButton2.Text = c.skills[1].skillName;
+            skillButton1.Text = c.skills[0].Name;
+            skillButton2.Text = c.skills[1].Name;
         }
 
         public void setStats()
         {
-            labelChar1Accuracy.Text = "accuracy: "+player.tempAccuracy.ToString();
-            labelChar1Attack.Text = "attack: "+player.tempAttack.ToString();
-            labelChar1Defense.Text = "defense: "+player.tempDefense.ToString();
-            labelChar1Energy.Text = "energy: "+player.MP.ToString();
-            labelChar1Evasion.Text = "evasion: "+player.tempEvasion.ToString();
-            labelChar1Health.Text = "health: "+player.HP.ToString();
-            labelChar1Magic.Text = "magic: "+player.tempSpirit.ToString();
-            labelChar1Spirit.Text = "spirit: "+player.tempWill.ToString();
+            
+            labelPlayer1Energy.Text = "energy: "+player[0].MP.ToString();
+            labelPlayer1Health.Text = "health: "+player[0].HP.ToString();
+            Player1.Text = player[0].Name;
+            
+            labelNPC1Energy.Text = "energy: " + enemy[0].MP.ToString();
+            labelNPC1Health.Text = "health: " + enemy[0].HP.ToString();
+            NPC1.Text = enemy[0].Name;
 
-            labelChar2Accuracy.Text = "accuracy: " + enemy.tempAccuracy.ToString();
-            labelChar2Attack.Text = "attack: " + enemy.tempAttack.ToString();
-            labelChar2Defense.Text = "defense: " + enemy.tempDefense.ToString();
-            labelChar2Energy.Text = "energy: " + enemy.MP.ToString();
-            labelChar2Evasion.Text = "evasion: " + enemy.tempEvasion.ToString();
-            labelChar2Health.Text = "health: " + enemy.HP.ToString();
-            labelChar2Magic.Text = "magic: " + enemy.tempSpirit.ToString();
-            labelChar2Spirit.Text = "spirit: " + enemy.tempWill.ToString();
+            if (player.Count > 1)
+            {
+                labelPlayer2Energy.Text = "energy: " + player[1].MP.ToString();
+                labelPlayer2Health.Text = "health: " + player[1].HP.ToString();
+                Player2.Text = player[1].Name;
+            }
+
+            if (player.Count > 2)
+            {
+                labelPlayer3Energy.Text = "energy: " + player[2].MP.ToString();
+                labelPlayer3Health.Text = "health: " + player[2].HP.ToString();
+                Player3.Text = player[2].Name;
+            }
+
+            if (enemy.Count > 1)
+            {
+                labelNPC2Energy.Text = "energy: " + enemy[1].MP.ToString();
+                labelNPC2Health.Text = "health: " + enemy[1].HP.ToString();
+                NPC2.Text = enemy[1].Name;
+            }
+            if (enemy.Count > 2)
+            {
+                labelNPC3Energy.Text = "energy: " + enemy[2].MP.ToString();
+                labelNPC3Health.Text = "health: " + enemy[2].HP.ToString();
+                NPC3.Text = enemy[2].Name;
+            }
+            displayStatus();
             
         }
 
+        private void displayStatus()
+        {
+            foreach (Status s in player[0].statuses)
+            {
+                labelPlayer1Status.Text += " " + s.Name;
+            }
+            if (player.Count > 1)
+            {
+                foreach (Status s in player[1].statuses)
+                {
+                    labelPlayer2Status.Text += " " + s.Name;
+                }
+            }
+            if (player.Count > 2) { 
+                foreach (Status s in player[2].statuses)
+                {
+                    labelPlayer3Status.Text += " " + s.Name;
+                }
+            }
+
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -111,14 +140,70 @@ namespace battleTest
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            CharacterForm nForm = new CharacterForm(player);
+            CharacterForm nForm = new CharacterForm(player[0]);
             nForm.Show();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            CharacterForm nForm = new CharacterForm(enemy);
+            CharacterForm nForm = new CharacterForm(enemy[0]);
             nForm.Show();
+        }
+
+        private void Player2_Click(object sender, EventArgs e)
+        {
+            if (BC.inBattle && player.Count > 1)
+            {//battle is started and there should be a character here
+                CharacterForm nForm = new CharacterForm(player[1]);
+                nForm.Show();
+            }
+            if(!BC.inBattle)
+            {
+                targetDialog nForm = new targetDialog(partyCharacters, this);
+                nForm.Show();
+            }
+            
+        }
+
+        private void MenuButton_Click(object sender, EventArgs e)
+        {
+            BC.startCombat();
+        }
+
+        private void Player3_Click(object sender, EventArgs e)
+        {
+            if (BC.inBattle && player.Count > 2)
+            {//battle is started and there should be a character here
+                CharacterForm nForm = new CharacterForm(player[2]);
+                nForm.Show();
+            }
+            if(!BC.inBattle)
+            {
+                targetDialog nForm = new targetDialog(partyCharacters, this);
+                nForm.Show();
+            }
+        }
+
+        private void NPC2_Click(object sender, EventArgs e)
+        {
+            if (BC.inBattle && enemy.Count > 1)
+            {
+                CharacterForm nForm = new CharacterForm(enemy[1]);
+            }
+        }
+
+        private void NPC3_Click(object sender, EventArgs e)
+        {
+            if (BC.inBattle && enemy.Count > 2)
+            {
+                CharacterForm nForm = new CharacterForm(enemy[2]);
+            }
+        }
+
+        private void skillButton2_Click(object sender, EventArgs e)
+        {
+            BC.useSkill(BC.currentCharacter, 1);
+            setStats();
         }
     }
 }

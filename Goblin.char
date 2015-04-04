@@ -1,5 +1,5 @@
-[enemy]
-name=Bob The Second
+[Goblin]
+name=Goblin
 team=npc
 health=4
 stamina=6
@@ -20,7 +20,7 @@ resistElectric=0
 resistPoison=0
 resistWind=0
 intrinsics=
-status=bleed
+status=
 skills=fireball,fireball
 weapons=shortsword,shield
 inventory=shortsword,shield

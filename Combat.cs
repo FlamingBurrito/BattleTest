@@ -29,9 +29,9 @@ namespace battleTest
         static public float getDamage(float successes)
         {
             float dmg = successes * 2f;
-            Console.WriteLine("damage: " + dmg.ToString());
+            //Console.WriteLine("damage: " + dmg.ToString());
             dmg = weaknesses(dmg);
-            Console.WriteLine("total damage done: " + dmg.ToString());
+            //Console.WriteLine("total damage done: " + dmg.ToString());
             return dmg;
         }
 
@@ -58,7 +58,7 @@ namespace battleTest
                 if (roll > 9)
                 {
                     dice++;
-                    Console.Write("(!) ");
+                    //Console.Write("(!) ");
                 }
             }
             return rolls;
@@ -78,7 +78,7 @@ namespace battleTest
                 if (roll > 9)
                 {
                     dice++;
-                    Console.Write("(!) ");
+                    //Console.Write("(!) ");
                 }
             }
             return rolls;
@@ -98,7 +98,7 @@ namespace battleTest
             {
                 if (rolls[r] >= targetNumber) { successes++; }
             }
-            Console.WriteLine("\n" + successes.ToString() + " successes counted in rolls.");
+            //Console.WriteLine("\n" + successes.ToString() + " successes counted in rolls.");
             return successes;
         }
 

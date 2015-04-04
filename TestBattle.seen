@@ -1,6 +1,6 @@
-[TestBatte]
-title=TestBattle
+[TestBattle]
+title=Test Battle: The Gobline Forest
 players=Bob
-enemies=Goblin,Goblin
-enemies2=Test
+wave1=Goblin,FatGoblin,Goblin
+wave2=Test
 background=forest

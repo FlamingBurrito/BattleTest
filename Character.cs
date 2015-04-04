@@ -45,8 +45,9 @@ namespace battleTest
 
         internal List<KeyValuePair<string, int>> resistances;
 
-        internal List<string> statuses;
-        internal List<string> intrinsics;
+        internal List<Status> statuses;
+        internal List<Status> intrinsics;
+
         internal List<string> equipment;
         internal List<string> inventory;
         internal List<string> weapons;
@@ -59,6 +60,7 @@ namespace battleTest
         public void load(string CharFile){
 
             IniFile newFile = new IniFile("../../"+CharFile+".char");
+            //Console.WriteLine("loading character " + CharFile);
             //string charName = Path.GetFileNameWithoutExtension(newFile.path);
 
             Name = newFile.IniReadValue(CharFile,"name");
@@ -103,24 +105,29 @@ namespace battleTest
             for (int s = 0; s < newSkills.Length; s++)
             {
                 Skill newSkill = new Skill(newSkills[s]);
+                //Console.WriteLine("Creating skill " + newSkill.Name);
                 skills.Add(newSkill);
             }
 
-            intrinsics = new List<string>();
+            intrinsics = new List<Status>();
             string intrinsicList = newFile.IniReadValue(CharFile, "intrinsics");
             string[] newIntrinsic = intrinsicList.Split(seperator, StringSplitOptions.None);
-            for (int n = 0; n < newIntrinsic.Length; n++)
+            for (int n = 0; n < newIntrinsic.Length-1; n++)
             {
-                intrinsics.Add(newIntrinsic[n]);
+                //intrinsics.Add(new Status(this,newIntrinsic[n]));
+                //addStatus(newIntrinsic[n]);
             }
 
-                statuses = new List<string>();
+            statuses = new List<Status>();
             string status = newFile.IniReadValue(CharFile, "status");
             string[] newStatuses = status.Split(seperator, StringSplitOptions.None);
-            for (int t = 0; t < newStatuses.Length; t++)
-            {
-                statuses.Add(newStatuses[t]);
-            }
+           
+            for (int t = 0; t < newStatuses.Length-1; t++)
+             {
+                 Status newStatus = new Status(this, newStatuses[t]);
+                 statuses.Add(newStatus);
+              //statuses.Add(new Status(this,newStatuses[t]));
+             }
 
             equipment = new List<string>();
             string equips = newFile.IniReadValue(CharFile, "equipment");
@@ -175,33 +182,40 @@ namespace battleTest
             HP = maxHP; MP = maxMP;
         }
 
-        public string activateStatus()
+        public void activateStatus()
         {
-            string returnString = null;
-
-            foreach(string c in statuses){
-                if (c.Length > 1) 
-                { 
-                returnString += c + " activated on " + Name;
-                }
-            }
-
-            return returnString;
+          foreach(Status s in statuses)
+          {
+              s.activate();
+          }
         }
 
         public void useSkill(int snum){
             Combat.output("skill number " + snum.ToString() + " used");
         }
 
-        public void damage(float dmg, string element, bool flag)
+        public void damage(float dmg, string element, bool percent)
         {
-            int damage = Convert.ToInt32(Math.Ceiling(dmg));
+            int damage;
+
+            if (percent)
+            {
+                damage = Convert.ToInt32(Math.Ceiling(maxHP * (dmg / 100f)));
+            }
+            else
+            {
+                damage = Convert.ToInt32(Math.Ceiling(dmg));
+            }
+
             HP -= damage;
             Combat.output("I,"+Name+", took "+ damage.ToString() + " " + element + " damage!");
         }
 
         public void addStatus(string status)
         {
+            Console.WriteLine(Name+":ADDSTATUS: " + status);
+            Status nStatus = new Status(this,status);
+            statuses.Add(nStatus);
             //add a status to the characters status list
         }
 

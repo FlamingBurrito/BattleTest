@@ -1,6 +1,8 @@
 [Fireball]
 name=Fireball
-targetGroup=singleEnemy
+targetGroup=enemies
+targets=single
+desc= Launch a large single fire ball at an enemy
 staminaUse=10
 freeAction=false
 coolDown=0

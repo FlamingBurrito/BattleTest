@@ -62,6 +62,7 @@
             this.targetList.Size = new System.Drawing.Size(162, 169);
             this.targetList.Sorted = true;
             this.targetList.TabIndex = 3;
+            this.targetList.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.targetList_ItemCheck);
             // 
             // targetDialog
             // 

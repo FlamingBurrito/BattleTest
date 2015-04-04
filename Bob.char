@@ -1,9 +1,9 @@
-[test]
-name=Bob
+[Bob]
+name=BobsYerUncle
 team=player
 health=8
 stamina=5.5
-attack=7.2
+attack=7
 accuracy=6
 spirit=4.3
 defense=5
@@ -20,7 +20,7 @@ resistElectric=0
 resistPoison=0
 resistWind=0
 intrinsics=
-status=bleed
+status=poison
 skills=fireball,fireball
 weapons=shortsword,shield
 inventory=shortsword,shield

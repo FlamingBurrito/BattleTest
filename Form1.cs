@@ -23,14 +23,6 @@ namespace battleTest
 
             player = character;
 
-            /*resistanceLabels = new List<Control>();
-            foreach (Control c in this.Controls)
-            {
-                if (c.Name.Contains("Resist")) {
-                    resistanceLabels.Add(c);
-                }
-            }
-            */
             setStats();
             getWeapons();
             getEquipment();

@@ -31,44 +31,48 @@
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.skillButton1 = new System.Windows.Forms.Button();
             this.skillButton2 = new System.Windows.Forms.Button();
-            this.labelChar1Name = new System.Windows.Forms.Label();
-            this.labelChar1Health = new System.Windows.Forms.Label();
-            this.labelChar1Energy = new System.Windows.Forms.Label();
-            this.labelChar1Attack = new System.Windows.Forms.Label();
-            this.labelChar1Defense = new System.Windows.Forms.Label();
-            this.labelChar1Accuracy = new System.Windows.Forms.Label();
-            this.labelChar1Magic = new System.Windows.Forms.Label();
-            this.labelChar1Evasion = new System.Windows.Forms.Label();
-            this.labelChar1Spirit = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.labelChar1Status = new System.Windows.Forms.Label();
-            this.labelChar2Status = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.labelChar2Spirit = new System.Windows.Forms.Label();
-            this.labelChar2Evasion = new System.Windows.Forms.Label();
-            this.labelChar2Magic = new System.Windows.Forms.Label();
-            this.labelChar2Accuracy = new System.Windows.Forms.Label();
-            this.labelChar2Defense = new System.Windows.Forms.Label();
-            this.labelChar2Attack = new System.Windows.Forms.Label();
-            this.labelChar2Energy = new System.Windows.Forms.Label();
-            this.labelChar2Health = new System.Windows.Forms.Label();
-            this.labelChar2Name = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.labelPlayer1Health = new System.Windows.Forms.Label();
+            this.labelPlayer1Energy = new System.Windows.Forms.Label();
+            this.labelPlayer1Status = new System.Windows.Forms.Label();
+            this.labelNPC1Status = new System.Windows.Forms.Label();
+            this.labelNPC1Energy = new System.Windows.Forms.Label();
+            this.labelNPC1Health = new System.Windows.Forms.Label();
+            this.Player1 = new System.Windows.Forms.Button();
+            this.NPC1 = new System.Windows.Forms.Button();
+            this.MenuButton = new System.Windows.Forms.Button();
+            this.Player2 = new System.Windows.Forms.Button();
+            this.Player3 = new System.Windows.Forms.Button();
+            this.NPC2 = new System.Windows.Forms.Button();
+            this.NPC3 = new System.Windows.Forms.Button();
+            this.labelPlayer2Health = new System.Windows.Forms.Label();
+            this.labelPlayer2Energy = new System.Windows.Forms.Label();
+            this.labelPlayer2Status = new System.Windows.Forms.Label();
+            this.labelNPC2Status = new System.Windows.Forms.Label();
+            this.labelNPC2Energy = new System.Windows.Forms.Label();
+            this.labelNPC2Health = new System.Windows.Forms.Label();
+            this.labelNPC3Status = new System.Windows.Forms.Label();
+            this.labelNPC3Energy = new System.Windows.Forms.Label();
+            this.labelNPC3Health = new System.Windows.Forms.Label();
+            this.labelPlayer3Status = new System.Windows.Forms.Label();
+            this.labelPlayer3Energy = new System.Windows.Forms.Label();
+            this.labelPlayer3Health = new System.Windows.Forms.Label();
+            this.skillButton3 = new System.Windows.Forms.Button();
+            this.skillButton4 = new System.Windows.Forms.Button();
+            this.InventoryButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(12, 12);
+            this.richTextBox1.Location = new System.Drawing.Point(11, 73);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(335, 295);
+            this.richTextBox1.Size = new System.Drawing.Size(353, 132);
             this.richTextBox1.TabIndex = 2;
             this.richTextBox1.Text = "";
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // skillButton1
             // 
-            this.skillButton1.Location = new System.Drawing.Point(606, 284);
+            this.skillButton1.Location = new System.Drawing.Point(370, 71);
             this.skillButton1.Name = "skillButton1";
             this.skillButton1.Size = new System.Drawing.Size(75, 23);
             this.skillButton1.TabIndex = 5;
@@ -78,260 +82,304 @@
             // 
             // skillButton2
             // 
-            this.skillButton2.Location = new System.Drawing.Point(687, 284);
+            this.skillButton2.Location = new System.Drawing.Point(370, 100);
             this.skillButton2.Name = "skillButton2";
             this.skillButton2.Size = new System.Drawing.Size(75, 23);
             this.skillButton2.TabIndex = 8;
             this.skillButton2.Text = "Skill two";
             this.skillButton2.UseVisualStyleBackColor = true;
+            this.skillButton2.Click += new System.EventHandler(this.skillButton2_Click);
             // 
-            // labelChar1Name
+            // labelPlayer1Health
             // 
-            this.labelChar1Name.AutoSize = true;
-            this.labelChar1Name.Location = new System.Drawing.Point(359, 14);
-            this.labelChar1Name.Name = "labelChar1Name";
-            this.labelChar1Name.Size = new System.Drawing.Size(77, 13);
-            this.labelChar1Name.TabIndex = 18;
-            this.labelChar1Name.Text = "Character one:";
+            this.labelPlayer1Health.AutoSize = true;
+            this.labelPlayer1Health.Location = new System.Drawing.Point(12, 31);
+            this.labelPlayer1Health.Name = "labelPlayer1Health";
+            this.labelPlayer1Health.Size = new System.Drawing.Size(41, 13);
+            this.labelPlayer1Health.TabIndex = 19;
+            this.labelPlayer1Health.Text = "Health:";
             // 
-            // labelChar1Health
+            // labelPlayer1Energy
             // 
-            this.labelChar1Health.AutoSize = true;
-            this.labelChar1Health.Location = new System.Drawing.Point(359, 41);
-            this.labelChar1Health.Name = "labelChar1Health";
-            this.labelChar1Health.Size = new System.Drawing.Size(41, 13);
-            this.labelChar1Health.TabIndex = 19;
-            this.labelChar1Health.Text = "Health:";
+            this.labelPlayer1Energy.AutoSize = true;
+            this.labelPlayer1Energy.Location = new System.Drawing.Point(12, 44);
+            this.labelPlayer1Energy.Name = "labelPlayer1Energy";
+            this.labelPlayer1Energy.Size = new System.Drawing.Size(43, 13);
+            this.labelPlayer1Energy.TabIndex = 20;
+            this.labelPlayer1Energy.Text = "Energy:";
             // 
-            // labelChar1Energy
+            // labelPlayer1Status
             // 
-            this.labelChar1Energy.AutoSize = true;
-            this.labelChar1Energy.Location = new System.Drawing.Point(457, 41);
-            this.labelChar1Energy.Name = "labelChar1Energy";
-            this.labelChar1Energy.Size = new System.Drawing.Size(43, 13);
-            this.labelChar1Energy.TabIndex = 20;
-            this.labelChar1Energy.Text = "Energy:";
+            this.labelPlayer1Status.AutoSize = true;
+            this.labelPlayer1Status.Location = new System.Drawing.Point(12, 57);
+            this.labelPlayer1Status.Name = "labelPlayer1Status";
+            this.labelPlayer1Status.Size = new System.Drawing.Size(35, 13);
+            this.labelPlayer1Status.TabIndex = 28;
+            this.labelPlayer1Status.Text = "status";
             // 
-            // labelChar1Attack
+            // labelNPC1Status
             // 
-            this.labelChar1Attack.AutoSize = true;
-            this.labelChar1Attack.Location = new System.Drawing.Point(359, 63);
-            this.labelChar1Attack.Name = "labelChar1Attack";
-            this.labelChar1Attack.Size = new System.Drawing.Size(41, 13);
-            this.labelChar1Attack.TabIndex = 21;
-            this.labelChar1Attack.Text = "Attack:";
+            this.labelNPC1Status.AutoSize = true;
+            this.labelNPC1Status.Location = new System.Drawing.Point(12, 263);
+            this.labelNPC1Status.Name = "labelNPC1Status";
+            this.labelNPC1Status.Size = new System.Drawing.Size(35, 13);
+            this.labelNPC1Status.TabIndex = 39;
+            this.labelNPC1Status.Text = "status";
             // 
-            // labelChar1Defense
+            // labelNPC1Energy
             // 
-            this.labelChar1Defense.AutoSize = true;
-            this.labelChar1Defense.Location = new System.Drawing.Point(359, 86);
-            this.labelChar1Defense.Name = "labelChar1Defense";
-            this.labelChar1Defense.Size = new System.Drawing.Size(50, 13);
-            this.labelChar1Defense.TabIndex = 22;
-            this.labelChar1Defense.Text = "Defense:";
+            this.labelNPC1Energy.AutoSize = true;
+            this.labelNPC1Energy.Location = new System.Drawing.Point(12, 250);
+            this.labelNPC1Energy.Name = "labelNPC1Energy";
+            this.labelNPC1Energy.Size = new System.Drawing.Size(43, 13);
+            this.labelNPC1Energy.TabIndex = 31;
+            this.labelNPC1Energy.Text = "Energy:";
             // 
-            // labelChar1Accuracy
+            // labelNPC1Health
             // 
-            this.labelChar1Accuracy.AutoSize = true;
-            this.labelChar1Accuracy.Location = new System.Drawing.Point(457, 63);
-            this.labelChar1Accuracy.Name = "labelChar1Accuracy";
-            this.labelChar1Accuracy.Size = new System.Drawing.Size(55, 13);
-            this.labelChar1Accuracy.TabIndex = 23;
-            this.labelChar1Accuracy.Text = "Accuracy:";
+            this.labelNPC1Health.AutoSize = true;
+            this.labelNPC1Health.Location = new System.Drawing.Point(12, 237);
+            this.labelNPC1Health.Name = "labelNPC1Health";
+            this.labelNPC1Health.Size = new System.Drawing.Size(41, 13);
+            this.labelNPC1Health.TabIndex = 30;
+            this.labelNPC1Health.Text = "Health:";
             // 
-            // labelChar1Magic
+            // Player1
             // 
-            this.labelChar1Magic.AutoSize = true;
-            this.labelChar1Magic.Location = new System.Drawing.Point(559, 63);
-            this.labelChar1Magic.Name = "labelChar1Magic";
-            this.labelChar1Magic.Size = new System.Drawing.Size(39, 13);
-            this.labelChar1Magic.TabIndex = 24;
-            this.labelChar1Magic.Text = "Magic:";
+            this.Player1.Location = new System.Drawing.Point(11, 5);
+            this.Player1.Name = "Player1";
+            this.Player1.Size = new System.Drawing.Size(105, 23);
+            this.Player1.TabIndex = 40;
+            this.Player1.Text = "Character";
+            this.Player1.UseVisualStyleBackColor = true;
+            this.Player1.Click += new System.EventHandler(this.button1_Click_1);
             // 
-            // labelChar1Evasion
+            // NPC1
             // 
-            this.labelChar1Evasion.AutoSize = true;
-            this.labelChar1Evasion.Location = new System.Drawing.Point(457, 86);
-            this.labelChar1Evasion.Name = "labelChar1Evasion";
-            this.labelChar1Evasion.Size = new System.Drawing.Size(48, 13);
-            this.labelChar1Evasion.TabIndex = 25;
-            this.labelChar1Evasion.Text = "Evasion:";
+            this.NPC1.Location = new System.Drawing.Point(11, 211);
+            this.NPC1.Name = "NPC1";
+            this.NPC1.Size = new System.Drawing.Size(105, 23);
+            this.NPC1.TabIndex = 41;
+            this.NPC1.Text = "Character";
+            this.NPC1.UseVisualStyleBackColor = true;
+            this.NPC1.Click += new System.EventHandler(this.button2_Click);
             // 
-            // labelChar1Spirit
+            // MenuButton
             // 
-            this.labelChar1Spirit.AutoSize = true;
-            this.labelChar1Spirit.Location = new System.Drawing.Point(559, 86);
-            this.labelChar1Spirit.Name = "labelChar1Spirit";
-            this.labelChar1Spirit.Size = new System.Drawing.Size(30, 13);
-            this.labelChar1Spirit.TabIndex = 26;
-            this.labelChar1Spirit.Text = "Spirit";
+            this.MenuButton.Location = new System.Drawing.Point(370, 263);
+            this.MenuButton.Name = "MenuButton";
+            this.MenuButton.Size = new System.Drawing.Size(75, 23);
+            this.MenuButton.TabIndex = 42;
+            this.MenuButton.Text = "Start";
+            this.MenuButton.UseVisualStyleBackColor = true;
+            this.MenuButton.Click += new System.EventHandler(this.MenuButton_Click);
             // 
-            // label13
+            // Player2
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(493, 15);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(51, 13);
-            this.label13.TabIndex = 27;
-            this.label13.Text = "Statuses:";
+            this.Player2.Location = new System.Drawing.Point(143, 5);
+            this.Player2.Name = "Player2";
+            this.Player2.Size = new System.Drawing.Size(105, 23);
+            this.Player2.TabIndex = 43;
+            this.Player2.Text = "Character";
+            this.Player2.UseVisualStyleBackColor = true;
+            this.Player2.Click += new System.EventHandler(this.Player2_Click);
             // 
-            // labelChar1Status
+            // Player3
             // 
-            this.labelChar1Status.AutoSize = true;
-            this.labelChar1Status.Location = new System.Drawing.Point(550, 15);
-            this.labelChar1Status.Name = "labelChar1Status";
-            this.labelChar1Status.Size = new System.Drawing.Size(35, 13);
-            this.labelChar1Status.TabIndex = 28;
-            this.labelChar1Status.Text = "status";
+            this.Player3.Location = new System.Drawing.Point(276, 5);
+            this.Player3.Name = "Player3";
+            this.Player3.Size = new System.Drawing.Size(105, 23);
+            this.Player3.TabIndex = 44;
+            this.Player3.Text = "Character";
+            this.Player3.UseVisualStyleBackColor = true;
+            this.Player3.Click += new System.EventHandler(this.Player3_Click);
             // 
-            // labelChar2Status
+            // NPC2
             // 
-            this.labelChar2Status.AutoSize = true;
-            this.labelChar2Status.Location = new System.Drawing.Point(550, 128);
-            this.labelChar2Status.Name = "labelChar2Status";
-            this.labelChar2Status.Size = new System.Drawing.Size(35, 13);
-            this.labelChar2Status.TabIndex = 39;
-            this.labelChar2Status.Text = "status";
+            this.NPC2.Location = new System.Drawing.Point(143, 211);
+            this.NPC2.Name = "NPC2";
+            this.NPC2.Size = new System.Drawing.Size(105, 23);
+            this.NPC2.TabIndex = 45;
+            this.NPC2.Text = "Character";
+            this.NPC2.UseVisualStyleBackColor = true;
+            this.NPC2.Click += new System.EventHandler(this.NPC2_Click);
             // 
-            // label16
+            // NPC3
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(493, 129);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(51, 13);
-            this.label16.TabIndex = 38;
-            this.label16.Text = "Statuses:";
+            this.NPC3.Location = new System.Drawing.Point(276, 211);
+            this.NPC3.Name = "NPC3";
+            this.NPC3.Size = new System.Drawing.Size(105, 23);
+            this.NPC3.TabIndex = 46;
+            this.NPC3.Text = "Character";
+            this.NPC3.UseVisualStyleBackColor = true;
+            this.NPC3.Click += new System.EventHandler(this.NPC3_Click);
             // 
-            // labelChar2Spirit
+            // labelPlayer2Health
             // 
-            this.labelChar2Spirit.AutoSize = true;
-            this.labelChar2Spirit.Location = new System.Drawing.Point(559, 200);
-            this.labelChar2Spirit.Name = "labelChar2Spirit";
-            this.labelChar2Spirit.Size = new System.Drawing.Size(30, 13);
-            this.labelChar2Spirit.TabIndex = 37;
-            this.labelChar2Spirit.Text = "Spirit";
+            this.labelPlayer2Health.AutoSize = true;
+            this.labelPlayer2Health.Location = new System.Drawing.Point(140, 32);
+            this.labelPlayer2Health.Name = "labelPlayer2Health";
+            this.labelPlayer2Health.Size = new System.Drawing.Size(41, 13);
+            this.labelPlayer2Health.TabIndex = 47;
+            this.labelPlayer2Health.Text = "Heatlh:";
             // 
-            // labelChar2Evasion
+            // labelPlayer2Energy
             // 
-            this.labelChar2Evasion.AutoSize = true;
-            this.labelChar2Evasion.Location = new System.Drawing.Point(457, 200);
-            this.labelChar2Evasion.Name = "labelChar2Evasion";
-            this.labelChar2Evasion.Size = new System.Drawing.Size(48, 13);
-            this.labelChar2Evasion.TabIndex = 36;
-            this.labelChar2Evasion.Text = "Evasion:";
+            this.labelPlayer2Energy.AutoSize = true;
+            this.labelPlayer2Energy.Location = new System.Drawing.Point(140, 45);
+            this.labelPlayer2Energy.Name = "labelPlayer2Energy";
+            this.labelPlayer2Energy.Size = new System.Drawing.Size(43, 13);
+            this.labelPlayer2Energy.TabIndex = 49;
+            this.labelPlayer2Energy.Text = "Energy:";
             // 
-            // labelChar2Magic
+            // labelPlayer2Status
             // 
-            this.labelChar2Magic.AutoSize = true;
-            this.labelChar2Magic.Location = new System.Drawing.Point(559, 177);
-            this.labelChar2Magic.Name = "labelChar2Magic";
-            this.labelChar2Magic.Size = new System.Drawing.Size(39, 13);
-            this.labelChar2Magic.TabIndex = 35;
-            this.labelChar2Magic.Text = "Magic:";
+            this.labelPlayer2Status.AutoSize = true;
+            this.labelPlayer2Status.Location = new System.Drawing.Point(140, 58);
+            this.labelPlayer2Status.Name = "labelPlayer2Status";
+            this.labelPlayer2Status.Size = new System.Drawing.Size(35, 13);
+            this.labelPlayer2Status.TabIndex = 50;
+            this.labelPlayer2Status.Text = "status";
             // 
-            // labelChar2Accuracy
+            // labelNPC2Status
             // 
-            this.labelChar2Accuracy.AutoSize = true;
-            this.labelChar2Accuracy.Location = new System.Drawing.Point(457, 177);
-            this.labelChar2Accuracy.Name = "labelChar2Accuracy";
-            this.labelChar2Accuracy.Size = new System.Drawing.Size(55, 13);
-            this.labelChar2Accuracy.TabIndex = 34;
-            this.labelChar2Accuracy.Text = "Accuracy:";
+            this.labelNPC2Status.AutoSize = true;
+            this.labelNPC2Status.Location = new System.Drawing.Point(140, 263);
+            this.labelNPC2Status.Name = "labelNPC2Status";
+            this.labelNPC2Status.Size = new System.Drawing.Size(35, 13);
+            this.labelNPC2Status.TabIndex = 53;
+            this.labelNPC2Status.Text = "status";
             // 
-            // labelChar2Defense
+            // labelNPC2Energy
             // 
-            this.labelChar2Defense.AutoSize = true;
-            this.labelChar2Defense.Location = new System.Drawing.Point(359, 200);
-            this.labelChar2Defense.Name = "labelChar2Defense";
-            this.labelChar2Defense.Size = new System.Drawing.Size(50, 13);
-            this.labelChar2Defense.TabIndex = 33;
-            this.labelChar2Defense.Text = "Defense:";
+            this.labelNPC2Energy.AutoSize = true;
+            this.labelNPC2Energy.Location = new System.Drawing.Point(140, 250);
+            this.labelNPC2Energy.Name = "labelNPC2Energy";
+            this.labelNPC2Energy.Size = new System.Drawing.Size(43, 13);
+            this.labelNPC2Energy.TabIndex = 52;
+            this.labelNPC2Energy.Text = "Energy:";
             // 
-            // labelChar2Attack
+            // labelNPC2Health
             // 
-            this.labelChar2Attack.AutoSize = true;
-            this.labelChar2Attack.Location = new System.Drawing.Point(359, 177);
-            this.labelChar2Attack.Name = "labelChar2Attack";
-            this.labelChar2Attack.Size = new System.Drawing.Size(41, 13);
-            this.labelChar2Attack.TabIndex = 32;
-            this.labelChar2Attack.Text = "Attack:";
+            this.labelNPC2Health.AutoSize = true;
+            this.labelNPC2Health.Location = new System.Drawing.Point(140, 237);
+            this.labelNPC2Health.Name = "labelNPC2Health";
+            this.labelNPC2Health.Size = new System.Drawing.Size(41, 13);
+            this.labelNPC2Health.TabIndex = 51;
+            this.labelNPC2Health.Text = "Heatlh:";
             // 
-            // labelChar2Energy
+            // labelNPC3Status
             // 
-            this.labelChar2Energy.AutoSize = true;
-            this.labelChar2Energy.Location = new System.Drawing.Point(457, 155);
-            this.labelChar2Energy.Name = "labelChar2Energy";
-            this.labelChar2Energy.Size = new System.Drawing.Size(43, 13);
-            this.labelChar2Energy.TabIndex = 31;
-            this.labelChar2Energy.Text = "Energy:";
+            this.labelNPC3Status.AutoSize = true;
+            this.labelNPC3Status.Location = new System.Drawing.Point(273, 263);
+            this.labelNPC3Status.Name = "labelNPC3Status";
+            this.labelNPC3Status.Size = new System.Drawing.Size(35, 13);
+            this.labelNPC3Status.TabIndex = 56;
+            this.labelNPC3Status.Text = "status";
             // 
-            // labelChar2Health
+            // labelNPC3Energy
             // 
-            this.labelChar2Health.AutoSize = true;
-            this.labelChar2Health.Location = new System.Drawing.Point(359, 155);
-            this.labelChar2Health.Name = "labelChar2Health";
-            this.labelChar2Health.Size = new System.Drawing.Size(41, 13);
-            this.labelChar2Health.TabIndex = 30;
-            this.labelChar2Health.Text = "Health:";
+            this.labelNPC3Energy.AutoSize = true;
+            this.labelNPC3Energy.Location = new System.Drawing.Point(273, 250);
+            this.labelNPC3Energy.Name = "labelNPC3Energy";
+            this.labelNPC3Energy.Size = new System.Drawing.Size(43, 13);
+            this.labelNPC3Energy.TabIndex = 55;
+            this.labelNPC3Energy.Text = "Energy:";
             // 
-            // labelChar2Name
+            // labelNPC3Health
             // 
-            this.labelChar2Name.AutoSize = true;
-            this.labelChar2Name.Location = new System.Drawing.Point(359, 128);
-            this.labelChar2Name.Name = "labelChar2Name";
-            this.labelChar2Name.Size = new System.Drawing.Size(76, 13);
-            this.labelChar2Name.TabIndex = 29;
-            this.labelChar2Name.Text = "Character two:";
+            this.labelNPC3Health.AutoSize = true;
+            this.labelNPC3Health.Location = new System.Drawing.Point(273, 237);
+            this.labelNPC3Health.Name = "labelNPC3Health";
+            this.labelNPC3Health.Size = new System.Drawing.Size(41, 13);
+            this.labelNPC3Health.TabIndex = 54;
+            this.labelNPC3Health.Text = "Heatlh:";
             // 
-            // button1
+            // labelPlayer3Status
             // 
-            this.button1.Location = new System.Drawing.Point(687, 9);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 40;
-            this.button1.Text = "Character";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.labelPlayer3Status.AutoSize = true;
+            this.labelPlayer3Status.Location = new System.Drawing.Point(275, 57);
+            this.labelPlayer3Status.Name = "labelPlayer3Status";
+            this.labelPlayer3Status.Size = new System.Drawing.Size(35, 13);
+            this.labelPlayer3Status.TabIndex = 59;
+            this.labelPlayer3Status.Text = "status";
             // 
-            // button2
+            // labelPlayer3Energy
             // 
-            this.button2.Location = new System.Drawing.Point(687, 123);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 41;
-            this.button2.Text = "Character";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.labelPlayer3Energy.AutoSize = true;
+            this.labelPlayer3Energy.Location = new System.Drawing.Point(275, 44);
+            this.labelPlayer3Energy.Name = "labelPlayer3Energy";
+            this.labelPlayer3Energy.Size = new System.Drawing.Size(43, 13);
+            this.labelPlayer3Energy.TabIndex = 58;
+            this.labelPlayer3Energy.Text = "Energy:";
+            // 
+            // labelPlayer3Health
+            // 
+            this.labelPlayer3Health.AutoSize = true;
+            this.labelPlayer3Health.Location = new System.Drawing.Point(275, 31);
+            this.labelPlayer3Health.Name = "labelPlayer3Health";
+            this.labelPlayer3Health.Size = new System.Drawing.Size(41, 13);
+            this.labelPlayer3Health.TabIndex = 57;
+            this.labelPlayer3Health.Text = "Heatlh:";
+            // 
+            // skillButton3
+            // 
+            this.skillButton3.Location = new System.Drawing.Point(370, 129);
+            this.skillButton3.Name = "skillButton3";
+            this.skillButton3.Size = new System.Drawing.Size(75, 23);
+            this.skillButton3.TabIndex = 60;
+            this.skillButton3.UseVisualStyleBackColor = true;
+            // 
+            // skillButton4
+            // 
+            this.skillButton4.Location = new System.Drawing.Point(370, 158);
+            this.skillButton4.Name = "skillButton4";
+            this.skillButton4.Size = new System.Drawing.Size(75, 23);
+            this.skillButton4.TabIndex = 61;
+            this.skillButton4.UseVisualStyleBackColor = true;
+            // 
+            // InventoryButton
+            // 
+            this.InventoryButton.Location = new System.Drawing.Point(370, 187);
+            this.InventoryButton.Name = "InventoryButton";
+            this.InventoryButton.Size = new System.Drawing.Size(75, 23);
+            this.InventoryButton.TabIndex = 62;
+            this.InventoryButton.Text = "Inventory";
+            this.InventoryButton.UseVisualStyleBackColor = true;
             // 
             // battle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(774, 319);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.labelChar2Status);
-            this.Controls.Add(this.label16);
-            this.Controls.Add(this.labelChar2Spirit);
-            this.Controls.Add(this.labelChar2Evasion);
-            this.Controls.Add(this.labelChar2Magic);
-            this.Controls.Add(this.labelChar2Accuracy);
-            this.Controls.Add(this.labelChar2Defense);
-            this.Controls.Add(this.labelChar2Attack);
-            this.Controls.Add(this.labelChar2Energy);
-            this.Controls.Add(this.labelChar2Health);
-            this.Controls.Add(this.labelChar2Name);
-            this.Controls.Add(this.labelChar1Status);
-            this.Controls.Add(this.label13);
-            this.Controls.Add(this.labelChar1Spirit);
-            this.Controls.Add(this.labelChar1Evasion);
-            this.Controls.Add(this.labelChar1Magic);
-            this.Controls.Add(this.labelChar1Accuracy);
-            this.Controls.Add(this.labelChar1Defense);
-            this.Controls.Add(this.labelChar1Attack);
-            this.Controls.Add(this.labelChar1Energy);
-            this.Controls.Add(this.labelChar1Health);
-            this.Controls.Add(this.labelChar1Name);
+            this.ClientSize = new System.Drawing.Size(457, 289);
+            this.Controls.Add(this.InventoryButton);
+            this.Controls.Add(this.skillButton4);
+            this.Controls.Add(this.skillButton3);
+            this.Controls.Add(this.labelPlayer3Status);
+            this.Controls.Add(this.labelPlayer3Energy);
+            this.Controls.Add(this.labelPlayer3Health);
+            this.Controls.Add(this.labelNPC3Status);
+            this.Controls.Add(this.labelNPC3Energy);
+            this.Controls.Add(this.labelNPC3Health);
+            this.Controls.Add(this.labelNPC2Status);
+            this.Controls.Add(this.labelNPC2Energy);
+            this.Controls.Add(this.labelNPC2Health);
+            this.Controls.Add(this.labelPlayer2Status);
+            this.Controls.Add(this.labelPlayer2Energy);
+            this.Controls.Add(this.labelPlayer2Health);
+            this.Controls.Add(this.NPC3);
+            this.Controls.Add(this.NPC2);
+            this.Controls.Add(this.Player3);
+            this.Controls.Add(this.Player2);
+            this.Controls.Add(this.MenuButton);
+            this.Controls.Add(this.NPC1);
+            this.Controls.Add(this.Player1);
+            this.Controls.Add(this.labelNPC1Status);
+            this.Controls.Add(this.labelNPC1Energy);
+            this.Controls.Add(this.labelNPC1Health);
+            this.Controls.Add(this.labelPlayer1Status);
+            this.Controls.Add(this.labelPlayer1Energy);
+            this.Controls.Add(this.labelPlayer1Health);
             this.Controls.Add(this.skillButton2);
             this.Controls.Add(this.skillButton1);
             this.Controls.Add(this.richTextBox1);
@@ -347,29 +395,33 @@
         private System.Windows.Forms.Button skillButton1;
         public System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button skillButton2;
-        private System.Windows.Forms.Label labelChar1Name;
-        private System.Windows.Forms.Label labelChar1Health;
-        private System.Windows.Forms.Label labelChar1Energy;
-        private System.Windows.Forms.Label labelChar1Attack;
-        private System.Windows.Forms.Label labelChar1Defense;
-        private System.Windows.Forms.Label labelChar1Accuracy;
-        private System.Windows.Forms.Label labelChar1Magic;
-        private System.Windows.Forms.Label labelChar1Evasion;
-        private System.Windows.Forms.Label labelChar1Spirit;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label labelChar1Status;
-        private System.Windows.Forms.Label labelChar2Status;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label labelChar2Spirit;
-        private System.Windows.Forms.Label labelChar2Evasion;
-        private System.Windows.Forms.Label labelChar2Magic;
-        private System.Windows.Forms.Label labelChar2Accuracy;
-        private System.Windows.Forms.Label labelChar2Defense;
-        private System.Windows.Forms.Label labelChar2Attack;
-        private System.Windows.Forms.Label labelChar2Energy;
-        private System.Windows.Forms.Label labelChar2Health;
-        private System.Windows.Forms.Label labelChar2Name;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label labelPlayer1Health;
+        private System.Windows.Forms.Label labelPlayer1Energy;
+        private System.Windows.Forms.Label labelPlayer1Status;
+        private System.Windows.Forms.Label labelNPC1Status;
+        private System.Windows.Forms.Label labelNPC1Energy;
+        private System.Windows.Forms.Label labelNPC1Health;
+        private System.Windows.Forms.Button Player1;
+        private System.Windows.Forms.Button NPC1;
+        private System.Windows.Forms.Button MenuButton;
+        private System.Windows.Forms.Button Player2;
+        private System.Windows.Forms.Button Player3;
+        private System.Windows.Forms.Button NPC2;
+        private System.Windows.Forms.Button NPC3;
+        private System.Windows.Forms.Label labelPlayer2Health;
+        private System.Windows.Forms.Label labelPlayer2Energy;
+        private System.Windows.Forms.Label labelPlayer2Status;
+        private System.Windows.Forms.Label labelNPC2Status;
+        private System.Windows.Forms.Label labelNPC2Energy;
+        private System.Windows.Forms.Label labelNPC2Health;
+        private System.Windows.Forms.Label labelNPC3Status;
+        private System.Windows.Forms.Label labelNPC3Energy;
+        private System.Windows.Forms.Label labelNPC3Health;
+        private System.Windows.Forms.Label labelPlayer3Status;
+        private System.Windows.Forms.Label labelPlayer3Energy;
+        private System.Windows.Forms.Label labelPlayer3Health;
+        private System.Windows.Forms.Button skillButton3;
+        private System.Windows.Forms.Button skillButton4;
+        private System.Windows.Forms.Button InventoryButton;
     }
 }

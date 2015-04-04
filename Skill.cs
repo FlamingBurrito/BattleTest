@@ -10,8 +10,13 @@ namespace battleTest
     public class Skill
     {
 
-        public string skillName;
+        //public string skillName;
+        public string Name;
         public string targetGroup;
+        public string targetNumber;
+
+        public string description;
+
         public bool freeAction;
 
         public int coolDown;
@@ -40,17 +45,21 @@ namespace battleTest
 
         public Skill(string newSkill)
         {
-            Console.WriteLine("opening skill file for " + newSkill);
+           // Console.WriteLine("opening skill file for " + newSkill);
             IniFile newFile = new IniFile("../../" + newSkill + ".skil");
             loadSkill(newFile);
         }
 
         void loadSkill(IniFile currentFile)
         {
-            skillName = System.IO.Path.GetFileNameWithoutExtension(currentFile.path);
+            string skillName = System.IO.Path.GetFileNameWithoutExtension(currentFile.path);
             //TBName.Text = currentFile.IniReadValue(skillName, "name");
 
+            Name = currentFile.IniReadValue(skillName, "name");
             targetGroup = currentFile.IniReadValue(skillName, "targetGroup");
+            targetNumber = currentFile.IniReadValue(skillName, "targets");
+            description = currentFile.IniReadValue(skillName, "desc");
+
             staminaUse = Convert.ToInt32(currentFile.IniReadValue(skillName, "staminaUse"));
             freeAction = Convert.ToBoolean(currentFile.IniReadValue(skillName, "freeAction"));
             isWarm = Convert.ToBoolean(currentFile.IniReadValue(skillName, "isWarm"));
@@ -245,7 +254,7 @@ useAmmo(status) */
             }
             else
             {
-                Combat.output(skillName + " missed!");
+                Combat.output(Name + " missed!");
             }
         }
 
