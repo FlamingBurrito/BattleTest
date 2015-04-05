@@ -101,9 +101,16 @@ namespace battleTest
 
         private void displayStatus()
         {
+            labelPlayer1Status.Text = null;
+            labelPlayer2Status.Text = null;
+            labelPlayer3Status.Text = null;
+            labelNPC1Status.Text = null;
+            labelNPC2Status.Text = null;
+            labelNPC3Status.Text = null;
+
             foreach (Status s in player[0].statuses)
             {
-                labelPlayer1Status.Text += " " + s.Name;
+                labelPlayer1Status.Text +=(" " + s.Name);
             }
             if (player.Count > 1)
             {
@@ -116,6 +123,24 @@ namespace battleTest
                 foreach (Status s in player[2].statuses)
                 {
                     labelPlayer3Status.Text += " " + s.Name;
+                }
+            }
+            foreach (Status s in enemy[0].statuses)
+            {
+                labelNPC1Status.Text += (" " + s.Name);
+            }
+            if (enemy.Count > 1)
+            {
+                foreach (Status s in enemy[1].statuses)
+                {
+                    labelNPC2Status.Text += " " + s.Name;
+                }
+            }
+            if (enemy.Count > 2)
+            {
+                foreach (Status s in enemy[2].statuses)
+                {
+                    labelNPC3Status.Text += " " + s.Name;
                 }
             }
 
@@ -186,18 +211,16 @@ namespace battleTest
 
         private void NPC2_Click(object sender, EventArgs e)
         {
-            if (BC.inBattle && enemy.Count > 1)
-            {
-                CharacterForm nForm = new CharacterForm(enemy[1]);
-            }
+          CharacterForm nForm = new CharacterForm(enemy[1]);
+          nForm.Show();
+            
         }
 
         private void NPC3_Click(object sender, EventArgs e)
         {
-            if (BC.inBattle && enemy.Count > 2)
-            {
-                CharacterForm nForm = new CharacterForm(enemy[2]);
-            }
+           CharacterForm nForm = new CharacterForm(enemy[2]);
+           nForm.Show();
+            
         }
 
         private void skillButton2_Click(object sender, EventArgs e)

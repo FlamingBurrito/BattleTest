@@ -174,9 +174,7 @@ useAmmo(status) */
                 {
                     if (c.team != user.team)
                     {
-                        Random rng = new Random();
-                        int activate = rng.Next(1, 101);
-                        if (activate <= chance)
+                        if (Combat.rollCheck(chance, 101))
                         {
                             c.addStatus(status);
                         }
@@ -191,9 +189,7 @@ useAmmo(status) */
                 {
                     if (c.team == user.team)
                     {
-                        Random rng = new Random();
-                        int activate = rng.Next(1, 101);
-                        if (activate <= chance)
+                        if (Combat.rollCheck(chance, 101))
                         {
                             c.addStatus(status);
                         }
@@ -204,9 +200,7 @@ useAmmo(status) */
             }
             if (target == "self")
             {
-                Random rng = new Random();
-                int activate = rng.Next(1, 101);
-                if (activate <= chance)
+                if (Combat.rollCheck(chance, 101))
                 {
                     user.addStatus(status);
                 }
@@ -299,6 +293,7 @@ useAmmo(status) */
 
         float criticalHit(float dmg)
         {
+            Combat.output("SMAAAAASH!");
             float totalDamage = dmg * criticalDamage;
             return totalDamage;
         }

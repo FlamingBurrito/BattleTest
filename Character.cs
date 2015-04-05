@@ -101,33 +101,42 @@ namespace battleTest
 
             skills = new List<Skill>();
             string skillsList = newFile.IniReadValue(CharFile, "skills");
-            string[] newSkills = skillsList.Split(seperator, StringSplitOptions.None);
-            for (int s = 0; s < newSkills.Length; s++)
+            if (skillsList.Length > 1)
             {
-                Skill newSkill = new Skill(newSkills[s]);
-                //Console.WriteLine("Creating skill " + newSkill.Name);
-                skills.Add(newSkill);
+                string[] newSkills = skillsList.Split(seperator, StringSplitOptions.None);
+                for (int s = 0; s < newSkills.Length; s++)
+                {
+                    Skill newSkill = new Skill(newSkills[s]);
+                    //Console.WriteLine("Creating skill " + newSkill.Name);
+                    skills.Add(newSkill);
+                }
             }
+
 
             intrinsics = new List<Status>();
             string intrinsicList = newFile.IniReadValue(CharFile, "intrinsics");
-            string[] newIntrinsic = intrinsicList.Split(seperator, StringSplitOptions.None);
-            for (int n = 0; n < newIntrinsic.Length-1; n++)
+            if (intrinsicList.Length > 1)
             {
-                //intrinsics.Add(new Status(this,newIntrinsic[n]));
-                //addStatus(newIntrinsic[n]);
+                string[] newIntrinsic = intrinsicList.Split(seperator, StringSplitOptions.None);
+                for (int n = 0; n < newIntrinsic.Length; n++)
+                {
+                    //intrinsics.Add(new Status(this,newIntrinsic[n]));
+                    //addStatus(newIntrinsic[n]);
+                }
             }
+
 
             statuses = new List<Status>();
             string status = newFile.IniReadValue(CharFile, "status");
-            string[] newStatuses = status.Split(seperator, StringSplitOptions.None);
-           
-            for (int t = 0; t < newStatuses.Length-1; t++)
-             {
-                 Status newStatus = new Status(this, newStatuses[t]);
-                 statuses.Add(newStatus);
-              //statuses.Add(new Status(this,newStatuses[t]));
-             }
+            if (status.Length > 1)
+            {
+                string[] newStatuses = status.Split(seperator, StringSplitOptions.None);
+                for (int t = 0; t < newStatuses.Length; t++)
+                {
+                    Status newStatus = new Status(this, newStatuses[t]);
+                    statuses.Add(newStatus);
+                }
+            }            
 
             equipment = new List<string>();
             string equips = newFile.IniReadValue(CharFile, "equipment");
@@ -182,16 +191,25 @@ namespace battleTest
             HP = maxHP; MP = maxMP;
         }
 
-        public void activateStatus()
+        public void activateStatus(string step)
         {
-          foreach(Status s in statuses)
-          {
-              s.activate();
-          }
+            foreach(Status s in statuses)
+            {
+                if (s.step == "turn") { s.activate(); }
+                s.turnIncrease(); //update the turn counter for that status
+            }
+        }
+
+        public void removeOldStatus()
+        {
+            for (int s = statuses.Count() - 1; s > -1; s--)
+            {
+                if (statuses[s].toBeRemove) { statuses[s].remove(); }
+            }
         }
 
         public void useSkill(int snum){
-            Combat.output("skill number " + snum.ToString() + " used");
+            //Combat.output("skill number " + snum.ToString() + " used");
         }
 
         public void damage(float dmg, string element, bool percent)
@@ -208,14 +226,20 @@ namespace battleTest
             }
 
             HP -= damage;
-            Combat.output("I,"+Name+", took "+ damage.ToString() + " " + element + " damage!");
+            Combat.output(Name+" took "+ damage.ToString() + " " + element + " damage!");
         }
 
         public void addStatus(string status)
         {
-            Console.WriteLine(Name+":ADDSTATUS: " + status);
+            //Console.WriteLine(Name+":ADDSTATUS: " + status);
             Status nStatus = new Status(this,status);
-            statuses.Add(nStatus);
+            if (nStatus.checkCount())
+            {   //check if we don't have too many stacked yet
+                statuses.Add(nStatus);
+            }
+            else { Console.WriteLine("too many "+nStatus.Name+" on "+Name+" already!"); }
+            //statuses.Add(nStatus);
+            
             //add a status to the characters status list
         }
 

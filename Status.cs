@@ -15,6 +15,8 @@ namespace battleTest
 
         public string description;
 
+        public bool toBeRemove = false;
+
         public Character owner;
 
         public int stack { get; set; }	//how many can be stacked
@@ -38,7 +40,7 @@ namespace battleTest
         public void loadStatus(IniFile currentFile)
         {
             string statusName = System.IO.Path.GetFileNameWithoutExtension(currentFile.path);
-            Console.WriteLine("setting up status " + statusName);
+           // Console.WriteLine("setting up status " + statusName);
             //use path operation to get the section name of the status
             Name = currentFile.IniReadValue(statusName, "name");
             step = currentFile.IniReadValue(statusName, "step");
@@ -58,9 +60,9 @@ namespace battleTest
 
         }
 
-        public virtual void added(Character owner)
+        public virtual void added()
         {
-
+           //procs to run when a status is first added
         }
 
         public void readFunction()
@@ -104,11 +106,45 @@ namespace battleTest
 
         void harm(int percent, string element){
             owner.damage(percent, element, true);
-            Combat.output("Poison Activates on " + owner.Name);
+            //Combat.output(Name+" Activates on " + owner.Name);
         }
 
-        public virtual void remove(Character owner)
+        public void remove()
         {
+            //incase there is a function to run here
+            owner.statuses.Remove(this);
+        }
+
+        public void turnIncrease()
+        {
+            if (turns == length)
+            {
+                toBeRemove = true;
+                Console.WriteLine(Name + " is removing itself from " + owner.Name);
+                return;
+            }
+            else
+            {
+                turns++;
+            }
+        }
+
+        public bool checkCount()
+        {
+            int sCount = 0;
+            foreach (Status s in owner.statuses)
+            {
+                if (s.Name == this.Name)
+                {
+                    sCount++;
+                }
+            }
+
+            if (sCount < stack)
+            { //there was room to add another count of status
+                return true;
+            }
+            return false; //too many status of same type, return false
         }
 
 
