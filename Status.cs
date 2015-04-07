@@ -33,7 +33,7 @@ namespace battleTest
         {
             owner = newOwner;
             IniFile newFile = new IniFile("../../" + newStatus + ".stat");
-            Console.WriteLine("Loading status " + newStatus);
+            //Console.WriteLine("Loading status " + newStatus);
             loadStatus(newFile);
         }
 
@@ -75,6 +75,14 @@ namespace battleTest
                 {
                     harm(Convert.ToInt32(args[1]), args[2]);
                 }
+                if (args[0] == "heal")
+                {
+                    heal(Convert.ToInt32(args[1]), bool.Parse(args[2]));
+                }
+                if (args[0] == "drain")
+                {
+                    energy(Convert.ToInt32(args[1]), args[2], bool.Parse(args[3]));
+                }
             }
             /*
               absorbDamage(#absorbed, from skillType)
@@ -83,10 +91,11 @@ namespace battleTest
         addDamage(% to increase, of skillType)
         addResist(# to change, resistance)
         addStat(# to change, stat to change)
-        addStatus(% chance,status to add,target,onEnd?)
+        addStatus(% chance,status to add,target,onEnd?)*
+        energy(#to energy, element, asPercentage) 
         evasion(% chance, to evade skillType)
-        Harm(% to harm, health/stamina)
-        Heal(% to heal, health/stamina)
+        Harm(% to harm, elemnt) acts as percentage
+        Heal(% to heal, asPercentage)
         protect(% chance to protect, from skillType)
         response(skill to use, target)
              */
@@ -107,6 +116,19 @@ namespace battleTest
         void harm(int percent, string element){
             owner.damage(percent, element, true);
             //Combat.output(Name+" Activates on " + owner.Name);
+        }
+
+        void heal(int amount, bool asPercent)
+        {
+            //bool percent = bool.Parse(asPercent);
+            owner.heal(amount, asPercent);
+        }
+
+        void energy(int energy, string element, bool asPercent)
+        {
+            owner.healEnergy(energy, element, asPercent);
+            //energy(#to energy, element, asPercentage)
+
         }
 
         public void remove()

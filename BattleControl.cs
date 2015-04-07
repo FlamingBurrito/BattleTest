@@ -14,11 +14,11 @@ namespace battleTest
 
         public bool inBattle= false;
 
-        public BattleControl(battle parentForm, string sceneName)
+        public BattleControl(battle parentForm, string sceneName, string playerName)
         {
             mainForm = parentForm;
 
-            loadPlayer("Neba");
+            loadPlayer(playerName);
             loadScene(sceneName);
 
         }
@@ -37,7 +37,7 @@ namespace battleTest
             allCharacters = new List<Character>();            
 
             string[] pcs = players.Split(new string[] { "," }, System.StringSplitOptions.None);
-            Console.WriteLine(players);
+            //Console.WriteLine(players);
             for (int p = 0; p < pcs.Length; p++)
             {
                 //Console.WriteLine("Adding character " + pcs[p]);

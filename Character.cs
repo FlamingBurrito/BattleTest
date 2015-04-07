@@ -14,6 +14,8 @@ namespace battleTest
 
         internal string team { get; set; }
 
+        //artificial intelligence
+
         internal float attack {get; set;}
         internal float accuracy { get; set; }
         internal float spirit { get; set; }
@@ -227,6 +229,37 @@ namespace battleTest
 
             HP -= damage;
             Combat.output(Name+" took "+ damage.ToString() + " " + element + " damage!");
+        }
+
+        public void heal(float dmg, bool percent)
+        {
+            int damage;
+            if (percent)
+            {
+                damage = Convert.ToInt32(Math.Ceiling(maxHP * (dmg / 100f)));
+            }
+            else { damage = Convert.ToInt32(Math.Ceiling(dmg));}
+
+            HP += damage;
+            if(HP > maxHP){ HP = maxHP; } //make sure we don't heal them past full
+
+            Combat.output(Name + " was healed for" + damage.ToString() + "!");
+        }
+
+        public void healEnergy(float dmg, string element, bool percent)
+        {
+            int damage;
+            if (percent)
+            {
+                damage = Convert.ToInt32(Math.Ceiling(maxMP * (dmg / 100f)));
+            }
+            else { damage = Convert.ToInt32(Math.Ceiling(dmg)); }
+
+            MP += damage;
+            if (MP > maxMP) { MP = maxMP; }
+
+            if (damage > -1) { Combat.output(Name + " recovered " + damage.ToString() + " energy!"); }
+            else { Combat.output(Name + "lost " + damage.ToString() + "energy!"); }
         }
 
         public void addStatus(string status)

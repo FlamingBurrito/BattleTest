@@ -9,3 +9,4 @@ e:\visual studio Projects\battleTest\battleTest\obj\Debug\battleTest.pdb
 e:\visual studio Projects\battleTest\battleTest\obj\Debug\battleTest.CharacterForm.resources
 e:\visual studio Projects\battleTest\battleTest\obj\Debug\battleTest.battle.resources
 e:\visual studio Projects\battleTest\battleTest\obj\Debug\battleTest.targetDialog.resources
+e:\visual studio Projects\battleTest\battleTest\obj\Debug\battleTest.debub.resources

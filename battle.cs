@@ -19,14 +19,14 @@ namespace battleTest
 
         internal BattleControl BC;
 
-        public battle()
+        public battle(string sceneName, string playerName)
         {
             InitializeComponent();
 
             Combat.setForm(this);
 
 
-            BC = new BattleControl(this,"TestBattle");
+            BC = new BattleControl(this,sceneName,playerName);
             findTeams();                         
 
             setStats();
@@ -42,11 +42,18 @@ namespace battleTest
             {
                 if (BC.allCharacters[c].team == "player")
                 {
-                    Console.WriteLine("Adding " + BC.allCharacters[c].Name + " to players team");
+                    //Console.WriteLine("Adding " + BC.allCharacters[c].Name + " to players team");
                     player.Add(BC.allCharacters[c]);
                 }
                 else
                 {
+                    foreach (Character e in enemy)
+                    {
+                        if (e.Name == BC.allCharacters[c].Name)
+                        {
+                            BC.allCharacters[c].Name += (" " + c.ToString());
+                        }
+                    }
                     enemy.Add(BC.allCharacters[c]);
                 }
             }
@@ -192,7 +199,18 @@ namespace battleTest
 
         private void MenuButton_Click(object sender, EventArgs e)
         {
-            BC.startCombat();
+            if (BC.inBattle)
+            {
+                //open up the menu dialog for saving, editing, etc
+                debub debugMenu = new debub(BC);
+                debugMenu.Show();
+            }
+            else
+            {
+                BC.startCombat();
+                MenuButton.Text = "Menu";
+            }
+            
         }
 
         private void Player3_Click(object sender, EventArgs e)

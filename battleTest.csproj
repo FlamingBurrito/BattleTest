@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI.cs" />
     <Compile Include="battle.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -57,6 +58,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Combat.cs" />
+    <Compile Include="debub.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="debub.Designer.cs">
+      <DependentUpon>debub.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +83,9 @@
     </Compile>
     <EmbeddedResource Include="battle.resx">
       <DependentUpon>battle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="debub.resx">
+      <DependentUpon>debub.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
