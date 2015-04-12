@@ -15,6 +15,7 @@ namespace battleTest
         internal string team { get; set; }
 
         //artificial intelligence
+        internal AI behavior;
 
         internal float attack {get; set;}
         internal float accuracy { get; set; }
@@ -164,7 +165,16 @@ namespace battleTest
                 inventory.Add(newItems[i]);
             }
 
-                setStats();
+            checkNPC();
+            setStats();
+        }
+
+        internal void checkNPC()
+        {
+            if (team == "npc")
+            {
+                behavior = new AI(this);
+            }
         }
 
         internal void setStats()
@@ -210,8 +220,9 @@ namespace battleTest
             }
         }
 
-        public void useSkill(int snum){
+        public void useSkill(int snum, List<Character> target){
             //Combat.output("skill number " + snum.ToString() + " used");
+            skills[snum].use(this, target);
         }
 
         public void damage(float dmg, string element, bool percent)
@@ -246,7 +257,7 @@ namespace battleTest
             Combat.output(Name + " was healed for" + damage.ToString() + "!");
         }
 
-        public void healEnergy(float dmg, string element, bool percent)
+        public void healEnergy(float dmg, bool percent)
         {
             int damage;
             if (percent)
@@ -269,11 +280,14 @@ namespace battleTest
             if (nStatus.checkCount())
             {   //check if we don't have too many stacked yet
                 statuses.Add(nStatus);
-            }
-            else { Console.WriteLine("too many "+nStatus.Name+" on "+Name+" already!"); }
-            //statuses.Add(nStatus);
-            
+            }            
             //add a status to the characters status list
+        }
+
+        public bool deathCheck()
+        {
+            if (HP < 1) { return true; }
+            return false;
         }
 
 

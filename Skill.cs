@@ -12,31 +12,35 @@ namespace battleTest
 
         //public string skillName;
         public string Name;
-        public string targetGroup;
-        public string targetNumber;
+        public string targetGroup; //enemies, allies, self
+        public string targetNumber;//single, all
 
-        public string description;
+        public string description; //displayed on mouseover
+        public string brand;    //offense, defense, support used by AI to determine
+                                //which skill to use
 
-        public bool freeAction;
+        public bool freeAction; //doesn't end the turn
 
-        public int coolDown;
-        public bool isWarm;
+        public int coolDown; //how many rounds it takes to cool off
+        public bool isWarm; //can't be used if true
 
-        public int accuracy;
-        public int criticalRatio;
-        public float criticalDamage;
+        public int accuracy; //how likely the skill hits
+        public int criticalRatio; //the chance to do a critical hit
+        public float criticalDamage; //how much to multiply damage by
 
-        public string element;			//fire, ice, etc
+        //for resistances and determing the type of the attack
+        public string element;			    //fire, ice, etc
         public string method;				//melee, physical, ranged, magic
         public string damageType;			//piercing, slashing, blunt
 
-        public int attackNumber;
-        public int minDamage;
-        public int maxDamage;
-        public string attackStat;
-        public string defenseStat;
 
-        public int staminaUse;
+        public int attackNumber; //# of attacks, obsolete in new system
+        public int minDamage;   //determined for better damage previewing
+        public int maxDamage;
+        public string attackStat;   //the stat used for attack, probably obsolete
+        public string defenseStat;  //also obsolete
+
+        public int staminaUse;  //how much stamina is used by the skill, eventually a %
 
         public Character user;
         public List<Character> targets;
@@ -59,6 +63,7 @@ namespace battleTest
             targetGroup = currentFile.IniReadValue(skillName, "targetGroup");
             targetNumber = currentFile.IniReadValue(skillName, "targets");
             description = currentFile.IniReadValue(skillName, "desc");
+            brand = currentFile.IniReadValue(skillName, "brand");
 
             staminaUse = Convert.ToInt32(currentFile.IniReadValue(skillName, "staminaUse"));
             freeAction = Convert.ToBoolean(currentFile.IniReadValue(skillName, "freeAction"));
@@ -76,7 +81,7 @@ namespace battleTest
             {
                 string[] args = commands[i].Split(new string[] { "," }, System.StringSplitOptions.None);
                 if (args[0].Equals("attack"))
-                {
+                { //this was put in for display purposes of demo damage
                     minDamage += int.Parse(args[1]);
                     maxDamage += int.Parse(args[2]);
                 }
@@ -124,6 +129,7 @@ namespace battleTest
                 }
                 if (args[0].Equals("heal"))
                 {
+                    heal(int.Parse(args[1]), args[2], args[3]);
                 }
                 if (args[0].Equals("ignoreArmor"))
                 {
@@ -187,8 +193,8 @@ useAmmo(status) */
             {
                 foreach (Character c in targets)
                 {
-                    if (c.team == user.team)
-                    {
+                    if (c.team == user.team && c != user)
+                    {//use on allies and not self
                         if (Combat.rollCheck(chance, 101))
                         {
                             c.addStatus(status);
@@ -210,10 +216,9 @@ useAmmo(status) */
             return true;
         }
 
-        private void attack(int min, int max, string targetGroup)
+        private void heal(int percent, string whatToHeal, string targetGroup)
         {
-            int AC = accuracyCheck();
-            if (AC > 0) //accuracy check first
+            if (whatToHeal == "health")
             {
                 switch (targetGroup)
                 {
@@ -222,20 +227,108 @@ useAmmo(status) */
                         {
                             if (c.team != user.team)
                             {
+                                c.heal(percent, true);
+                            }
+                        }
+                        break;
+                    case "allies":
+                        foreach (Character c in targets)
+                        {
+                            if (c.team == user.team && c != user)
+                            {//use on both allies and not self
+                                c.heal(percent, true);
+                            }
+                        }
+                        break;
+                    case "self":
+                        foreach (Character c in targets)
+                        {
+                            if (c == user)
+                            {
+                                c.heal(percent, true);
+                            }
+                        }
+                        break;
+                }
+            }
+            if(whatToHeal == "stamina")
+            {
+                switch (targetGroup)
+                {
+                    case "enemies":
+                        foreach (Character c in targets)
+                        {
+                            if (c.team != user.team)
+                            {
+                                c.healEnergy(percent, true);
+                            }
+                        }
+                        break;
+                    case "allies":
+                        foreach (Character c in targets)
+                        {
+                            if (c.team == user.team && c != user)
+                            {//use on both allies and not self
+                                c.healEnergy(percent, true);
+                            }
+                        }
+                        break;
+                    case "self":
+                        foreach (Character c in targets)
+                        {
+                            if (c == user)
+                            {
+                                c.healEnergy(percent, true);
+                            }
+                        }
+                        break;
+                }
+            }
+        }
+
+        private void attack(int min, int max, string targetGroup)
+        {
+                switch (targetGroup)
+                {
+                    case "enemies":
+                        foreach (Character c in targets)
+                        {
+                            int AC = accuracyCheck();
+                            if (c.team != user.team && AC > 0)
+                            {
+                                Combat.output(user.Name + " hits " + c.Name + " with " + Name);
                                 float dmg = getDamage();
                                 if (AC == 2) { dmg = criticalHit(dmg); } //critical hit
                                 c.damage(dmg, element, false);
                             }
+                            else { Combat.output(user.Name + " missed " + c.Name + " with " + Name); }
                         }
                         break;
 
                     case "allies":
                         foreach (Character c in targets)
                         {
-                            if (c.team == user.team)
+                            int AC = accuracyCheck();
+                            if (c.team == user.team && c != user && AC > 0)
                             {
+                                Combat.output(user.Name + " hits " + c.Name + " with " + Name);
                                 float dmg = getDamage();
                                 if (AC == 2) { dmg = criticalHit(dmg); } //critical hit
+                                c.damage(dmg, element, false);
+                            }
+                            else { Combat.output(user.Name + " missed " + c.Name + " with " + Name); }
+                        }
+                        break;
+
+                    case "self":
+                        foreach (Character c in targets)
+                        {
+                            int AC = accuracyCheck();
+                            if (c == user && AC > 0)
+                            {
+                                Combat.output(user.Name + " hits themselves with " + Name);
+                                float dmg = getDamage();
+                                if (AC == 2) { dmg = criticalHit(dmg); }
                                 c.damage(dmg, element, false);
                             }
                         }
@@ -245,11 +338,6 @@ useAmmo(status) */
                         Combat.output("What happened here? Attack no targets?");
                         break;
                 }
-            }
-            else
-            {
-                Combat.output(Name + " missed!");
-            }
         }
 
         public bool use(Character skillUser, List<Character> target)

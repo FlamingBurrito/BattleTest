@@ -24,6 +24,7 @@ namespace battleTest
         static public void output(string outputString)
         {
             battleForm.richTextBox1.Text += outputString+"\n";
+            //System.Threading.Thread.Sleep(1000);
         }
 
         static public float getDamage(float successes)
@@ -52,7 +53,7 @@ namespace battleTest
                 int roll = rng.Next(1, (sides + 1));
                 //get a random number between 1 and number of sides passed
                 rolls.Add(roll);
-                Console.Write(roll.ToString() + " ");
+                //Console.Write(roll.ToString() + " ");
                 //add the roll into the list of rolls
                 //Roll of 10 or better adds an additional roll
                 if (roll > 9)
@@ -72,7 +73,7 @@ namespace battleTest
                 int roll = rng.Next(1, (sides + 1)) + bonus;
                 //get a random number between 1 and number of sides passed, add bonus
                 rolls.Add(roll);
-                Console.Write(roll.ToString() + " ");
+                //Console.Write(roll.ToString() + " ");
                 //add the roll into the list of rolls
                 //Roll of 10 or better adds an additional roll
                 if (roll > 9)

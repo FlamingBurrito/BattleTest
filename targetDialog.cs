@@ -64,6 +64,13 @@ namespace battleTest
                         targetList.Items.Add(c);
                     }
                 }
+                if (skill.targetGroup == "self")
+                {
+                    if (c == parent.BC.currentCharacter)
+                    {
+                        targetList.Items.Add(c);
+                    }
+                }
             }
 
         }
@@ -104,6 +111,7 @@ namespace battleTest
             }
             else
             {
+                this.Hide();
                 List<Character> finalTargets = new List<Character>();
 
                 foreach (Character c in targetList.CheckedItems)

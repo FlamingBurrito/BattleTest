@@ -1,0 +1,16 @@
+[Healing]
+name=Healing
+targetGroup=self
+targets=all
+desc=Binds flesh and bone back to whole
+brand=defense
+staminaUse=100
+freeAction=false
+coolDown=2
+isWarm=false
+hitChance=99
+attackNumber=1
+criticalRatio=0
+criticalDamage=2
+element=light
+function=heal,10,health,self;

@@ -10,6 +10,9 @@ namespace battleTest
         internal List<Character> allCharacters;
         internal Character currentCharacter;
 
+        internal List<Character> PCS;
+        internal List<Character> NPCS;
+
         internal battle mainForm;
 
         public bool inBattle= false;
@@ -34,20 +37,26 @@ namespace battleTest
             string wave2 = newScene.IniReadValue(sceneName, "wave2");
             //texture background = newScene.IniReadValue(sceneName,"background");
 
-            allCharacters = new List<Character>();            
+            allCharacters = new List<Character>();
+            PCS = new List<Character>();
+            NPCS = new List<Character>();
 
             string[] pcs = players.Split(new string[] { "," }, System.StringSplitOptions.None);
             //Console.WriteLine(players);
             for (int p = 0; p < pcs.Length; p++)
             {
                 //Console.WriteLine("Adding character " + pcs[p]);
-                allCharacters.Add(new Character(pcs[p]));
+                Character newPC = new Character(pcs[p]);
+                allCharacters.Add(newPC);
+                PCS.Add(newPC);
             }
             string[] firstWave = wave1.Split(new String[] { "," }, System.StringSplitOptions.None);
             for (int e = 0; e < firstWave.Length; e++)
             {
                // Console.WriteLine("Adding character " + firstWave[e]);
-                allCharacters.Add(new Character(firstWave[e]));
+                Character newNPC = new Character(firstWave[e]);
+                allCharacters.Add(newNPC);
+                NPCS.Add(newNPC);
             }
 
             mainForm.Text = sceneTitle;
@@ -119,9 +128,16 @@ namespace battleTest
             currentCharacter = allCharacters[turnCounter];
             //Combat.output(allCharacters[turnCounter].activateStatus());
             Combat.output("Beginning turn of " + currentCharacter.Name + "...");
+            currentCharacter.activateStatus("turn");
+            if (currentCharacter.behavior != null)
+            {
+               // Console.WriteLine("We see you are an AI "+currentCharacter.Name);
+                currentCharacter.behavior.startAITurn(this);
+                return;
+            }
             mainForm.getSkills(currentCharacter);
             //activating all of the status, pass what turn step it is
-            currentCharacter.activateStatus("turn");
+            
             update();
         }
 

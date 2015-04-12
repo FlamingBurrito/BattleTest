@@ -126,7 +126,7 @@ namespace battleTest
 
         void energy(int energy, string element, bool asPercent)
         {
-            owner.healEnergy(energy, element, asPercent);
+            owner.healEnergy(energy, asPercent);
             //energy(#to energy, element, asPercentage)
 
         }

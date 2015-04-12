@@ -3,6 +3,7 @@ name=Tornada
 targetGroup=enemies
 targets=all
 desc=Devastating wind storm is ablowin'!
+brand=offense
 staminaUse=50
 freeAction=false
 coolDown=3

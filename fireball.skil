@@ -3,6 +3,7 @@ name=Fireball
 targetGroup=enemies
 targets=single
 desc= Launch a large single fire ball at an enemy
+brand=offense
 staminaUse=10
 freeAction=false
 coolDown=0
