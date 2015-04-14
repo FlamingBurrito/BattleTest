@@ -23,6 +23,7 @@ namespace battleTest
 
         public int coolDown; //how many rounds it takes to cool off
         public bool isWarm; //can't be used if true
+        public int warmCount; //the count of how many rounds it has been warm
 
         public int accuracy; //how likely the skill hits
         public int criticalRatio; //the chance to do a critical hit
@@ -68,6 +69,7 @@ namespace battleTest
             staminaUse = Convert.ToInt32(currentFile.IniReadValue(skillName, "staminaUse"));
             freeAction = Convert.ToBoolean(currentFile.IniReadValue(skillName, "freeAction"));
             isWarm = Convert.ToBoolean(currentFile.IniReadValue(skillName, "isWarm"));
+            coolDown = Convert.ToInt32(currentFile.IniReadValue(skillName, "coolDown"));
             accuracy = Convert.ToInt32(currentFile.IniReadValue(skillName, "hitChance"));
             criticalRatio = Convert.ToInt32(currentFile.IniReadValue(skillName, "criticalRatio"));
             criticalDamage = float.Parse(currentFile.IniReadValue(skillName, "criticalDamage"));
@@ -342,6 +344,11 @@ useAmmo(status) */
 
         public bool use(Character skillUser, List<Character> target)
         {
+            if (this.isWarm)
+            {
+                return false;
+            }
+
             user = skillUser;
             targets = target;
             user.MP -= staminaUse;
@@ -351,9 +358,26 @@ useAmmo(status) */
                 scriptRead(functions);
             }
 
+            if (coolDown > 0)
+            {
+                isWarm = true;
+                warmCount = coolDown;
+            }
+
             //asAttack(user,target);
 
             return true;
+        }
+
+        public bool warmCheck()
+        {
+            if (warmCount == 1)
+            {
+                warmCount = 0;
+                isWarm = false;
+                return true;
+            }
+            else { warmCount--; return false; }
         }
 
         int accuracyCheck()

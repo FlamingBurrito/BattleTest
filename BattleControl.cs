@@ -84,7 +84,9 @@ namespace battleTest
             Character nChar = new Character(character);
             //Console.WriteLine("Created character " + character);
             allCharacters.Add(nChar);
+            PCS.Add(nChar);
             mainForm.partyCharacters.Remove(character);
+
             mainForm.findTeams();
             mainForm.setStats();
         }
@@ -96,6 +98,7 @@ namespace battleTest
             {
                 return p2.tempSpeed.CompareTo(p1.tempSpeed);
             });
+
             //sort the characters by their speed stat so that the fastest goes first
             //find and start the first turn of combat
             //findTurn();
@@ -129,6 +132,7 @@ namespace battleTest
             //Combat.output(allCharacters[turnCounter].activateStatus());
             Combat.output("Beginning turn of " + currentCharacter.Name + "...");
             currentCharacter.activateStatus("turn");
+            currentCharacter.checkSkills();
             if (currentCharacter.behavior != null)
             {
                // Console.WriteLine("We see you are an AI "+currentCharacter.Name);

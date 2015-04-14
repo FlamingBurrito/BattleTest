@@ -61,8 +61,44 @@ namespace battleTest
 
         public void getSkills(Character c)
         {
+            skillButton1.Enabled = true;
+            skillButton2.Enabled = true;
+            skillButton3.Enabled = true;
+            skillButton4.Enabled = true;
+
             skillButton1.Text = c.skills[0].Name;
-            skillButton2.Text = c.skills[1].Name;
+            if (c.skills[0].isWarm)
+            {
+                skillButton1.Enabled = false;
+                skillButton1.Text = c.skills[0].Name + "[" + c.skills[0].warmCount.ToString() + "]";
+            }
+
+            if (c.skills.Count > 1)
+            {
+                skillButton2.Text = c.skills[1].Name;
+                if (c.skills[1].isWarm) {
+                    skillButton2.Enabled = false;
+                    skillButton2.Text = c.skills[1].Name + "[" + c.skills[1].warmCount.ToString() + "]";
+                }
+            }
+
+            if (c.skills.Count > 2)
+            {
+                skillButton3.Text = c.skills[2].Name;
+                if (c.skills[2].isWarm) { skillButton3.Enabled = false;
+                skillButton3.Text = c.skills[2].Name + "[" + c.skills[2].warmCount.ToString() + "]";
+                }
+            }
+
+            if (c.skills.Count > 3)
+            {
+                skillButton4.Text = c.skills[3].Name;
+                if (c.skills[3].isWarm) { skillButton4.Enabled = false;
+                skillButton4.Text = c.skills[3].Name + "[" + c.skills[3].warmCount.ToString() + "]";
+
+                }
+            }
+            
         }
 
         public void setStats()

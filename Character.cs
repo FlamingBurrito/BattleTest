@@ -220,6 +220,14 @@ namespace battleTest
             }
         }
 
+        public void checkSkills()
+        {
+            foreach (Skill s in skills)
+            {
+                s.warmCheck();
+            }
+        }
+
         public void useSkill(int snum, List<Character> target){
             //Combat.output("skill number " + snum.ToString() + " used");
             skills[snum].use(this, target);

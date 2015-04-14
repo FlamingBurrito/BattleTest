@@ -49,36 +49,47 @@ namespace battleTest
             BC = Battle;
 
             targets = new List<Character>();
-            //determine skill
-            determinePulls();
-            checkPulls();
 
-            skillToUse = decideSkill();
+            if (!intelligencePull())
+            {   //chaos didn't overtake them, use pulls
+                determinePulls();
+                checkPulls();
+                do
+                {   //keep trying to figure out the skill until we do
+                    decideSkill();
+                } while (!testSkill());
+                
 
-            if (skillToUse.targetNumber == "all")
-            {   //skill just effects all of a side, so no need to determine target
-                switch(skillToUse.targetGroup)
-                {
-                    case "enemies":
-                        targets.AddRange(BC.PCS);
-                        break;
-                    case "allies":
-                        targets.AddRange(BC.NPCS);
-                        break;
-                    case "self":
-                        targets.Add(owner);
-                        break;
+                if (skillToUse.targetNumber == "all")
+                {   //skill just effects all of a side, so no need to determine target
+                    switch (skillToUse.targetGroup)
+                    {
+                        case "enemies":
+                            targets.AddRange(BC.PCS);
+                            break;
+                        case "allies":
+                            targets.AddRange(BC.NPCS);
+                            break;
+                        case "self":
+                            targets.Add(owner);
+                            break;
+                    }
+                    skillToUse.use(owner, targets);
                 }
-                skillToUse.use(owner, targets);
-            }
-            else
-            {
-                skillToUse.use(owner, findTarget());
-            }
-            //find targets
+                else
+                {
+                    skillToUse.use(owner, findTarget());
+                }
 
-            //skillToUse.use(owner, findTarget());
-            //use skill on targets
+                
+            }
+
+            else
+            {   //Chaos!! just use random shit on random guys!
+                skillToUse = randomTurn();
+                skillToUse.use(owner, randomTarget());
+            }
+
             
             BC.findTurn();
         }
@@ -91,17 +102,89 @@ namespace battleTest
 
             getStatePull(); //adds to the pull of the natural state
             teamSize();
+            checkTeamStatus();
+            checkStatus();
 
             offensePull += ferocity();
             defensePull += myHealth();
             supportPull += teammatesHealth();
             offensePull += enemiesHealth();
+            //my stamina left
 
             Console.WriteLine(owner.Name+"'s offense pull is "+offensePull.ToString());
             Console.WriteLine(owner.Name + "'s defense pull is " + defensePull.ToString());
             Console.WriteLine(owner.Name + "'s support pull is " + supportPull.ToString());
 
             //checkPulls();
+        }
+
+        public bool intelligencePull()
+        {
+            bool chaos = false;
+
+            switch(intelligence){
+                case Intelligence.Chaotic:
+                    chaos = Combat.rollCheck(60, 101);
+                    //sixty percent chance to make random move
+                    break;
+                case Intelligence.Low:
+                    chaos = Combat.rollCheck(50, 101);
+                    break;
+                case Intelligence.Normal:
+                    chaos = Combat.rollCheck(35, 101);
+                    break;
+                case Intelligence.High:
+                    chaos = Combat.rollCheck(15, 101);
+                    break;
+                case Intelligence.Mastermind:
+                    chaos = Combat.rollCheck(5, 101);
+                    break;
+                default:
+                    chaos = false;
+                    break;
+            }
+            Console.WriteLine(owner.Name + " chaos set to " + chaos.ToString());
+            return chaos;
+        }
+
+        public Skill randomTurn()
+        {
+            Skill randomSkill;
+            //chaos took over the character and they ignore pulls
+            int rng = Combat.rng.Next(0, (owner.skills.Count));
+            randomSkill = owner.skills[rng];
+            return randomSkill;
+        }
+
+        public List<Character> randomTarget()
+        {
+         List<Character> finalTarget = new List<Character>();
+
+            if (skillToUse.targetNumber == "all")
+            {   //skill just effects all of a side, so no need to determine target
+                switch (skillToUse.targetGroup)
+                {
+                    case "enemies":
+                        finalTarget.AddRange(BC.PCS);
+                        break;
+                    case "allies":
+                        finalTarget.AddRange(BC.NPCS);
+                        break;
+                    case "self":
+                        finalTarget.Add(owner);
+                        break;
+                }
+                return finalTarget;
+            }
+         List<Character> possibleTargets = new List<Character>();
+         if (skillToUse.targetGroup == "enemies") { possibleTargets.AddRange(BC.PCS); }
+         if (skillToUse.targetGroup == "allies") { possibleTargets.AddRange(BC.NPCS); }
+         if (skillToUse.targetGroup == "self") { possibleTargets.Add(owner); }
+
+        int randTarget = Combat.rng.Next(0, (possibleTargets.Count));
+        finalTarget.Add(possibleTargets[randTarget]);
+
+        return finalTarget;
         }
 
         public string checkPulls()
@@ -126,6 +209,21 @@ namespace battleTest
             if (state == Natural.Offense) { offensePull++; }
             if (state == Natural.Defense) { defensePull++; }
             if (state == Natural.Support) { supportPull++; }
+
+            switch (Combat.rng.Next(1, 4))
+            {   //throw a lil spice in there randomly
+                case 1:
+                    offensePull++;
+                    break;
+                case 2:
+                    defensePull++;
+                    break;
+                case 3:
+                    supportPull++;
+                    break;
+                default:
+                    break;
+            }
         }
         public int ferocity()
         {
@@ -170,22 +268,70 @@ namespace battleTest
             foreach (Character enemy in BC.PCS)
             {
                 if (enemy.HP < (enemy.maxHP * 0.50)) { offensePull++; }
-                if (enemy.HP < (enemy.maxHP * 033)) { offensePull++; }
+                if (enemy.HP < (enemy.maxHP * 0.33)) { offensePull++; }
             }
             return offensePull; 
         }
 
         public void teamSize()
         {
-            if (BC.NPCS.Count > BC.PCS.Count)
+            if (BC.NPCS.Count < BC.PCS.Count)
             {
-                //there are more teammates left than enemies be defensive
+                //there are fewer teammates left than enemies be defensive
                 defensePull++;
             }
             else
             {
                 offensePull++;
             }
+        }
+
+        public void checkTeamStatus()
+        {
+            int debuffs = 0;
+            foreach (Character c in BC.NPCS)
+            {
+                foreach (Status s in c.statuses)
+                {
+                    if (s.type == "Curse")
+                    {
+                        debuffs++;
+                    }
+                    if (s.type == "Boon")
+                    {
+                        debuffs--;
+                    }
+                }
+            }
+            if (debuffs > 0)
+            {
+                supportPull++;
+            }
+            if (debuffs < 0)
+            {
+                offensePull++;
+            }
+        }
+
+        public void checkStatus()
+        {
+            //look at all of the statuses and determine if we
+            //need to use a support/defense to get rid of debuffs
+            //or maybe need to attack because we have lots of buffs already
+            int buffs = 0; int debuffs = 0;
+            foreach (Status s in owner.statuses)
+            {
+                if (s.type == "Boon")
+                {
+                    buffs++;
+                }
+                if (s.type == "curse")
+                {
+                    debuffs++;
+                }
+            }
+            if (buffs > debuffs) { offensePull++; }
+            if (debuffs > buffs) { defensePull++; }
         }
 
         public List<Character> findTarget()
@@ -200,43 +346,78 @@ namespace battleTest
             switch (perferredTarget)
             {
                 case Target.Any:
-                    int randTarget = Combat.rng.Next(0, (possibleTargets.Count-1));
+                    int randTarget = Combat.rng.Next(0, (possibleTargets.Count));
                     finalTarget.Add(possibleTargets[randTarget]);
                     break;
                 case Target.Weakest:
-                    //findWeakest(possibleTargets);
+                    findWeakest(possibleTargets);
                     break;
                 case Target.Strongest:
-                    //findStrongest(possibleTargets);
+                    findStrongest(possibleTargets);
                     break;
                 case Target.MagicUser:
-                    //findMagicUser(possibleTargets);
+                    findMagicUser(possibleTargets);
                     break;
             }
             return finalTarget;
         }
 
-
-        public Skill decideSkill()
+        public Character findWeakest(List<Character> targets)
         {
-            //if they are chaotic, 80% chance to use a random skill
-            //if they have low intellegence, 50% chance to just use a random skill
-            //if they are normal, 20% chance to use a random skill
-            //if they are high 5% chance to use a random skill
-            //if they are a manstermind, 2% chance to use a random skill
+            Character target;
+
+            targets.Sort(delegate(Character p1, Character p2)
+            {
+                return p1.HP.CompareTo(p2.HP);
+            }); //returns the lowest current hp in the group
+
+            target = targets[0];
+            return target;
+        }
+
+        public Character findStrongest(List<Character> targets)
+        {
+            Character target;
+
+            targets.Sort(delegate(Character p1, Character p2)
+            {
+                return p2.tempAttack.CompareTo(p1.tempAttack);
+            }); //returns the highest tempattack in the group
+
+            target = targets[0];
+            return target;
+        }
+
+        public Character findMagicUser(List<Character> targets)
+        {
+            Character target;
+
+            targets.Sort(delegate(Character p1, Character p2)
+            {
+                return p1.tempSpirit.CompareTo(p2.tempSpirit);
+            }); //returns the highest tempspirit in the group
+
+            target = targets[0];
+            return target;
+        }
+
+        public void decideSkill()
+        {
             List<Skill> possibleSkills = new List<Skill>();
+            //Skill skillToUse;
 
             foreach (Skill s in owner.skills)
             {
                 if (s.brand == checkPulls()) { possibleSkills.Add(s); }
             }
-            //determine which pull is highest, if not random skill
-            //select a skill from the characters skillset that matches pull
-            //if no skill is found, just select a random one anyway
-            int randomSkill = Combat.rng.Next(0, (possibleSkills.Count - 1));
-            Skill skillToUse = possibleSkills[randomSkill];
-            //owner.useSkill(0,targets);
-            return skillToUse;
+
+            if (possibleSkills.Count < 1)
+            {   //no possible skills found; find a totally random one
+                skillToUse = randomTurn();
+            }
+
+            int randomSkill = Combat.rng.Next(0, (possibleSkills.Count));
+            skillToUse = possibleSkills[randomSkill];
         }
 
         public bool testSkill()
@@ -245,6 +426,7 @@ namespace battleTest
             //make sure that the skill is not in cooldown
             //make srue that there is a legal target for the skill
             //etc..
+            if (skillToUse.isWarm) { return false; }
             return true;
         }
 
