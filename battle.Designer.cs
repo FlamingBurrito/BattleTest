@@ -180,7 +180,7 @@
             // MenuButton
             // 
             this.MenuButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.MenuButton.Location = new System.Drawing.Point(14, 246);
+            this.MenuButton.Location = new System.Drawing.Point(14, 217);
             this.MenuButton.Name = "MenuButton";
             this.MenuButton.Size = new System.Drawing.Size(75, 23);
             this.MenuButton.TabIndex = 42;
@@ -459,7 +459,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(4, 230);
+            this.label1.Location = new System.Drawing.Point(4, 201);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(77, 13);
             this.label1.TabIndex = 64;

@@ -128,7 +128,11 @@ namespace battleTest
         {
             owner.healEnergy(energy, asPercent);
             //energy(#to energy, element, asPercentage)
+        }
 
+        void boost(string stat, int percent)
+        {
+            //adds to the owners stat by a percentage
         }
 
         public void remove()
