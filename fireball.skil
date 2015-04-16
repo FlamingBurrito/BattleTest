@@ -9,7 +9,6 @@ freeAction=false
 coolDown=0
 isWarm=false
 hitChance=95
-attackNumber=1
 criticalRatio=5
 criticalDamage=1.5
 element=fire

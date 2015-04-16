@@ -194,7 +194,7 @@ namespace battleTest
             //richTextBox1.Text += BC.currentCharacter.name+" attacked.\n";
             //BC.currentCharacter.useSkill(1);
             BC.useSkill(BC.currentCharacter, 0);
-            setStats();
+            //setStats();
             //BC.findTurn();
             //richTextBox1.Text += "starting turn " + BC.allCharacters[BC.turnCounter].name+"\n";
         }
@@ -279,8 +279,32 @@ namespace battleTest
 
         private void skillButton2_Click(object sender, EventArgs e)
         {
-            BC.useSkill(BC.currentCharacter, 1);
-            setStats();
+            if (BC.currentCharacter.skills.Count > 1)
+            {
+                BC.useSkill(BC.currentCharacter, 1);
+            }
+
+        }
+
+        private void buttonRest_Click(object sender, EventArgs e)
+        {
+            BC.rest(BC.currentCharacter);
+        }
+
+        private void skillButton3_Click(object sender, EventArgs e)
+        {
+            if (BC.currentCharacter.skills.Count > 2)
+            {
+                BC.useSkill(BC.currentCharacter, 2);
+            }
+        }
+
+        private void skillButton4_Click(object sender, EventArgs e)
+        {
+            if (BC.currentCharacter.skills.Count > 3)
+            {
+                BC.useSkill(BC.currentCharacter, 3);
+            }
         }
     }
 }

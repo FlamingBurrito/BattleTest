@@ -59,6 +59,7 @@
             this.skillButton3 = new System.Windows.Forms.Button();
             this.skillButton4 = new System.Windows.Forms.Button();
             this.InventoryButton = new System.Windows.Forms.Button();
+            this.buttonRest = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // richTextBox1
@@ -67,7 +68,7 @@
             this.richTextBox1.Location = new System.Drawing.Point(11, 73);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(353, 132);
+            this.richTextBox1.Size = new System.Drawing.Size(353, 157);
             this.richTextBox1.TabIndex = 2;
             this.richTextBox1.Text = "";
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
@@ -122,7 +123,7 @@
             // labelNPC1Status
             // 
             this.labelNPC1Status.AutoSize = true;
-            this.labelNPC1Status.Location = new System.Drawing.Point(12, 263);
+            this.labelNPC1Status.Location = new System.Drawing.Point(14, 288);
             this.labelNPC1Status.Name = "labelNPC1Status";
             this.labelNPC1Status.Size = new System.Drawing.Size(35, 13);
             this.labelNPC1Status.TabIndex = 39;
@@ -131,7 +132,7 @@
             // labelNPC1Energy
             // 
             this.labelNPC1Energy.AutoSize = true;
-            this.labelNPC1Energy.Location = new System.Drawing.Point(12, 250);
+            this.labelNPC1Energy.Location = new System.Drawing.Point(14, 275);
             this.labelNPC1Energy.Name = "labelNPC1Energy";
             this.labelNPC1Energy.Size = new System.Drawing.Size(43, 13);
             this.labelNPC1Energy.TabIndex = 31;
@@ -140,7 +141,7 @@
             // labelNPC1Health
             // 
             this.labelNPC1Health.AutoSize = true;
-            this.labelNPC1Health.Location = new System.Drawing.Point(12, 237);
+            this.labelNPC1Health.Location = new System.Drawing.Point(14, 262);
             this.labelNPC1Health.Name = "labelNPC1Health";
             this.labelNPC1Health.Size = new System.Drawing.Size(41, 13);
             this.labelNPC1Health.TabIndex = 30;
@@ -158,7 +159,7 @@
             // 
             // NPC1
             // 
-            this.NPC1.Location = new System.Drawing.Point(11, 211);
+            this.NPC1.Location = new System.Drawing.Point(13, 236);
             this.NPC1.Name = "NPC1";
             this.NPC1.Size = new System.Drawing.Size(105, 23);
             this.NPC1.TabIndex = 41;
@@ -168,7 +169,7 @@
             // 
             // MenuButton
             // 
-            this.MenuButton.Location = new System.Drawing.Point(370, 263);
+            this.MenuButton.Location = new System.Drawing.Point(370, 303);
             this.MenuButton.Name = "MenuButton";
             this.MenuButton.Size = new System.Drawing.Size(75, 23);
             this.MenuButton.TabIndex = 42;
@@ -198,7 +199,7 @@
             // 
             // NPC2
             // 
-            this.NPC2.Location = new System.Drawing.Point(143, 211);
+            this.NPC2.Location = new System.Drawing.Point(145, 236);
             this.NPC2.Name = "NPC2";
             this.NPC2.Size = new System.Drawing.Size(105, 23);
             this.NPC2.TabIndex = 45;
@@ -208,7 +209,7 @@
             // 
             // NPC3
             // 
-            this.NPC3.Location = new System.Drawing.Point(276, 211);
+            this.NPC3.Location = new System.Drawing.Point(278, 236);
             this.NPC3.Name = "NPC3";
             this.NPC3.Size = new System.Drawing.Size(105, 23);
             this.NPC3.TabIndex = 46;
@@ -246,7 +247,7 @@
             // labelNPC2Status
             // 
             this.labelNPC2Status.AutoSize = true;
-            this.labelNPC2Status.Location = new System.Drawing.Point(140, 263);
+            this.labelNPC2Status.Location = new System.Drawing.Point(142, 288);
             this.labelNPC2Status.Name = "labelNPC2Status";
             this.labelNPC2Status.Size = new System.Drawing.Size(35, 13);
             this.labelNPC2Status.TabIndex = 53;
@@ -255,7 +256,7 @@
             // labelNPC2Energy
             // 
             this.labelNPC2Energy.AutoSize = true;
-            this.labelNPC2Energy.Location = new System.Drawing.Point(140, 250);
+            this.labelNPC2Energy.Location = new System.Drawing.Point(142, 275);
             this.labelNPC2Energy.Name = "labelNPC2Energy";
             this.labelNPC2Energy.Size = new System.Drawing.Size(43, 13);
             this.labelNPC2Energy.TabIndex = 52;
@@ -264,7 +265,7 @@
             // labelNPC2Health
             // 
             this.labelNPC2Health.AutoSize = true;
-            this.labelNPC2Health.Location = new System.Drawing.Point(140, 237);
+            this.labelNPC2Health.Location = new System.Drawing.Point(142, 262);
             this.labelNPC2Health.Name = "labelNPC2Health";
             this.labelNPC2Health.Size = new System.Drawing.Size(41, 13);
             this.labelNPC2Health.TabIndex = 51;
@@ -273,7 +274,7 @@
             // labelNPC3Status
             // 
             this.labelNPC3Status.AutoSize = true;
-            this.labelNPC3Status.Location = new System.Drawing.Point(273, 263);
+            this.labelNPC3Status.Location = new System.Drawing.Point(275, 288);
             this.labelNPC3Status.Name = "labelNPC3Status";
             this.labelNPC3Status.Size = new System.Drawing.Size(35, 13);
             this.labelNPC3Status.TabIndex = 56;
@@ -282,7 +283,7 @@
             // labelNPC3Energy
             // 
             this.labelNPC3Energy.AutoSize = true;
-            this.labelNPC3Energy.Location = new System.Drawing.Point(273, 250);
+            this.labelNPC3Energy.Location = new System.Drawing.Point(275, 275);
             this.labelNPC3Energy.Name = "labelNPC3Energy";
             this.labelNPC3Energy.Size = new System.Drawing.Size(43, 13);
             this.labelNPC3Energy.TabIndex = 55;
@@ -291,7 +292,7 @@
             // labelNPC3Health
             // 
             this.labelNPC3Health.AutoSize = true;
-            this.labelNPC3Health.Location = new System.Drawing.Point(273, 237);
+            this.labelNPC3Health.Location = new System.Drawing.Point(275, 262);
             this.labelNPC3Health.Name = "labelNPC3Health";
             this.labelNPC3Health.Size = new System.Drawing.Size(41, 13);
             this.labelNPC3Health.TabIndex = 54;
@@ -331,6 +332,7 @@
             this.skillButton3.Size = new System.Drawing.Size(75, 23);
             this.skillButton3.TabIndex = 60;
             this.skillButton3.UseVisualStyleBackColor = true;
+            this.skillButton3.Click += new System.EventHandler(this.skillButton3_Click);
             // 
             // skillButton4
             // 
@@ -339,6 +341,7 @@
             this.skillButton4.Size = new System.Drawing.Size(75, 23);
             this.skillButton4.TabIndex = 61;
             this.skillButton4.UseVisualStyleBackColor = true;
+            this.skillButton4.Click += new System.EventHandler(this.skillButton4_Click);
             // 
             // InventoryButton
             // 
@@ -349,11 +352,22 @@
             this.InventoryButton.Text = "Inventory";
             this.InventoryButton.UseVisualStyleBackColor = true;
             // 
+            // buttonRest
+            // 
+            this.buttonRest.Location = new System.Drawing.Point(399, 216);
+            this.buttonRest.Name = "buttonRest";
+            this.buttonRest.Size = new System.Drawing.Size(46, 23);
+            this.buttonRest.TabIndex = 63;
+            this.buttonRest.Text = "Rest";
+            this.buttonRest.UseVisualStyleBackColor = true;
+            this.buttonRest.Click += new System.EventHandler(this.buttonRest_Click);
+            // 
             // battle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(457, 289);
+            this.ClientSize = new System.Drawing.Size(457, 338);
+            this.Controls.Add(this.buttonRest);
             this.Controls.Add(this.InventoryButton);
             this.Controls.Add(this.skillButton4);
             this.Controls.Add(this.skillButton3);
@@ -425,5 +439,6 @@
         private System.Windows.Forms.Button skillButton3;
         private System.Windows.Forms.Button skillButton4;
         private System.Windows.Forms.Button InventoryButton;
+        private System.Windows.Forms.Button buttonRest;
     }
 }

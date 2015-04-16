@@ -233,6 +233,18 @@ namespace battleTest
             skills[snum].use(this, target);
         }
 
+        public void rest()
+        {
+            double percent = Combat.rng.NextDouble();
+            //d = ((d * (3.2 - .23)) + .23);
+            percent = ((percent * (0.60 - 0.25)) + 0.25);
+            //this line should set a min and max for the double%
+
+            MP += (int)(maxMP * percent);
+            //user rests and gains back some of their stamina
+            Combat.output(Name + " rests.");
+        }
+
         public void damage(float dmg, string element, bool percent)
         {
             int damage;
@@ -278,7 +290,7 @@ namespace battleTest
             if (MP > maxMP) { MP = maxMP; }
 
             if (damage > -1) { Combat.output(Name + " recovered " + damage.ToString() + " energy!"); }
-            else { Combat.output(Name + "lost " + damage.ToString() + "energy!"); }
+            else { Combat.output(Name + "lost " + (-1*damage).ToString() + " energy!"); }
         }
 
         public void addStatus(string status)

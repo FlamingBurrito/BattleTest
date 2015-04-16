@@ -151,6 +151,13 @@ namespace battleTest
             targetting.Show();
         }
 
+        public void rest(Character c)
+        {
+            c.rest();
+            update();
+            findTurn();
+        }
+
         public void getTargets(Skill sk, List<Character> dialogTargets)
         {
             //Combat.output(dialogTargets.Count.ToString()+" Targets recieved!");

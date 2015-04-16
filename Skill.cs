@@ -35,7 +35,7 @@ namespace battleTest
         public string damageType;			//piercing, slashing, blunt
 
 
-        public int attackNumber; //# of attacks, obsolete in new system
+        //public int attackNumber; //# of attacks, obsolete in new system
         public int minDamage;   //determined for better damage previewing
         public int maxDamage;
         public string attackStat;   //the stat used for attack, probably obsolete
@@ -73,7 +73,7 @@ namespace battleTest
             accuracy = Convert.ToInt32(currentFile.IniReadValue(skillName, "hitChance"));
             criticalRatio = Convert.ToInt32(currentFile.IniReadValue(skillName, "criticalRatio"));
             criticalDamage = float.Parse(currentFile.IniReadValue(skillName, "criticalDamage"));
-            attackNumber = Convert.ToInt32(currentFile.IniReadValue(skillName, "attackNumber"));
+            //attackNumber = Convert.ToInt32(currentFile.IniReadValue(skillName, "attackNumber"));
             element = currentFile.IniReadValue(skillName, "element");
 
             functions = currentFile.IniReadValue(skillName, "function");
@@ -344,29 +344,31 @@ useAmmo(status) */
 
         public bool use(Character skillUser, List<Character> target)
         {
+            user = skillUser;
+            targets = target;
+
             if (this.isWarm)
             {
                 return false;
             }
 
-            user = skillUser;
-            targets = target;
-            user.MP -= staminaUse;
-
-            if (functions.Length > 0)
+            if (useStamina()) //enough stamina, use skill
             {
-                scriptRead(functions);
+                if (functions.Length > 0)
+                {
+                    scriptRead(functions);
+                }
+
+                if (coolDown > 0)
+                {
+                    isWarm = true;
+                    warmCount = coolDown;
+                }
+
+                return true;
             }
-
-            if (coolDown > 0)
-            {
-                isWarm = true;
-                warmCount = coolDown;
-            }
-
-            //asAttack(user,target);
-
-            return true;
+            //skill wasn't used, return false
+            return false;
         }
 
         public bool warmCheck()
@@ -378,6 +380,23 @@ useAmmo(status) */
                 return true;
             }
             else { warmCount--; return false; }
+        }
+
+        bool useStamina()
+        {
+            float staminaTotal = 0f;
+            staminaTotal = user.stamina * 100f;
+            staminaTotal = staminaTotal * (staminaUse / 100f);
+            //turn the staminatotal into a percent of the users base stamina
+            //drain that staminatotal from their current stamina
+            if (user.MP >= staminaTotal)
+            {
+                user.healEnergy((staminaTotal * -1), false);
+                return true;
+            }
+            Combat.output(user.Name + " doesn't have enough stamina to use " + Name);
+            return false;//not enough mp, return false
+
         }
 
         int accuracyCheck()

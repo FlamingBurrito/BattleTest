@@ -50,6 +50,24 @@ namespace battleTest
 
             targets = new List<Character>();
 
+            bool skillFound = false;
+            do
+            {
+                skillFound = findSkill();
+            } while (!skillFound);
+            
+            BC.findTurn();
+        }
+
+        bool findSkill()
+        {
+            if(!checkStamina())
+            {
+                //didn't have enough stamina to do shit, just rest instead
+                owner.rest();
+                return true;
+            }
+
             if (!intelligencePull())
             {   //chaos didn't overtake them, use pulls
                 determinePulls();
@@ -58,7 +76,7 @@ namespace battleTest
                 {   //keep trying to figure out the skill until we do
                     decideSkill();
                 } while (!testSkill());
-                
+
 
                 if (skillToUse.targetNumber == "all")
                 {   //skill just effects all of a side, so no need to determine target
@@ -74,24 +92,31 @@ namespace battleTest
                             targets.Add(owner);
                             break;
                     }
-                    skillToUse.use(owner, targets);
+                    if (skillToUse.use(owner, targets)) { return true; }
                 }
                 else
                 {
-                    skillToUse.use(owner, findTarget());
+                    if (skillToUse.use(owner, findTarget())) { return true; }
                 }
-
-                
             }
 
             else
             {   //Chaos!! just use random shit on random guys!
                 skillToUse = randomTurn();
-                skillToUse.use(owner, randomTarget());
+                if (skillToUse.use(owner, randomTarget())) { return true; }
             }
+            //all failed, return false
+            return false;
+        }
 
-            
-            BC.findTurn();
+        bool checkStamina()
+        {
+            bool notEnough = true;
+            if (owner.MP < (owner.maxMP / 20))
+            { //if the owner has less than 1/20th of stamina return false
+                notEnough = false;
+            }
+            return notEnough;
         }
 
         public void determinePulls()
@@ -111,9 +136,9 @@ namespace battleTest
             offensePull += enemiesHealth();
             //my stamina left
 
-            Console.WriteLine(owner.Name+"'s offense pull is "+offensePull.ToString());
-            Console.WriteLine(owner.Name + "'s defense pull is " + defensePull.ToString());
-            Console.WriteLine(owner.Name + "'s support pull is " + supportPull.ToString());
+           // Console.WriteLine(owner.Name+"'s offense pull is "+offensePull.ToString());
+           // Console.WriteLine(owner.Name + "'s defense pull is " + defensePull.ToString());
+           // Console.WriteLine(owner.Name + "'s support pull is " + supportPull.ToString());
 
             //checkPulls();
         }
