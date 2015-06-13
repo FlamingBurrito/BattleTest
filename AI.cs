@@ -168,7 +168,7 @@ namespace battleTest
                     chaos = false;
                     break;
             }
-            Console.WriteLine(owner.Name + " chaos set to " + chaos.ToString());
+            //Console.WriteLine(owner.Name + " chaos set to " + chaos.ToString());
             return chaos;
         }
 

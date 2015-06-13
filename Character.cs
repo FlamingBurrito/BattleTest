@@ -99,6 +99,12 @@ namespace battleTest
                 "dark", Convert.ToInt32(newFile.IniReadValue(CharFile, "resistDark"))));
             resistances.Add(new KeyValuePair<string, int>(
                 "light", Convert.ToInt32(newFile.IniReadValue(CharFile, "resistLight"))));
+            resistances.Add(new KeyValuePair<string, int>(
+                "piercing", Convert.ToInt32(newFile.IniReadValue(CharFile, "resistPiercing"))));
+            resistances.Add(new KeyValuePair<string, int>(
+                "blunt", Convert.ToInt32(newFile.IniReadValue(CharFile, "resistBlunt"))));
+            resistances.Add(new KeyValuePair<string, int>(
+                "slashing", Convert.ToInt32(newFile.IniReadValue(CharFile, "resistSlashing"))));
 
             char[] seperator = new char[] { ',' };
 
@@ -259,7 +265,43 @@ namespace battleTest
             }
 
             HP -= damage;
-            Combat.output(Name+" took "+ damage.ToString() + " " + element + " damage!");
+            System.Drawing.Color textColor = getElementColor(element);
+            Combat.output(Name + " received "+damage.ToString(),endLine:false);
+            Combat.output(" " + element + " damage ",textColor: textColor);
+            //Combat.output(Name+" took "+ damage.ToString() + " " + element + " damage!");
+        }
+
+        public System.Drawing.Color getElementColor(string element)
+        {
+            switch (element)
+            {
+                case("poison"):
+                    return System.Drawing.Color.Purple;
+                case("fire"):
+                    return System.Drawing.Color.Orange;
+                case("wind"):
+                    return System.Drawing.Color.White;
+                case ("water"):
+                    return System.Drawing.Color.Aqua;
+                case ("earth"):
+                    return System.Drawing.Color.SaddleBrown;
+                case ("light"):
+                    return System.Drawing.Color.LightGoldenrodYellow;
+                case ("dark"):
+                    return System.Drawing.Color.DarkBlue;
+                case ("electric"):
+                    return System.Drawing.Color.Yellow;
+                case ("ice"):
+                    return System.Drawing.Color.LightCoral;
+                case("piercing"):
+                    return System.Drawing.Color.Firebrick;
+                case("blunt"):
+                    return System.Drawing.Color.Gray;
+                case("slashing"):
+                    return System.Drawing.Color.GhostWhite;
+                default:
+                    return System.Drawing.Color.Black;
+            }
         }
 
         public void heal(float dmg, bool percent)
@@ -274,7 +316,7 @@ namespace battleTest
             HP += damage;
             if(HP > maxHP){ HP = maxHP; } //make sure we don't heal them past full
 
-            Combat.output(Name + " was healed for" + damage.ToString() + "!");
+            Combat.output(Name + " was healed for " + damage.ToString() + "!", textColor:System.Drawing.Color.Green);
         }
 
         public void healEnergy(float dmg, bool percent)
@@ -289,8 +331,18 @@ namespace battleTest
             MP += damage;
             if (MP > maxMP) { MP = maxMP; }
 
-            if (damage > -1) { Combat.output(Name + " recovered " + damage.ToString() + " energy!"); }
-            else { Combat.output(Name + "lost " + (-1*damage).ToString() + " energy!"); }
+            if (damage > -1) { Combat.output(Name + " recovered " + damage.ToString() + " energy!",textColor: System.Drawing.Color.LightBlue); }
+            else { Combat.output(Name + "lost " + (-1*damage).ToString() + " energy!", textColor:System.Drawing.Color.Red); }
+        }
+
+        public void useEnergy(float energyUse)
+        {
+            //called by skills to use the proper amount of energy - no output
+            int energyTotal = Convert.ToInt32(Math.Ceiling(energyUse));
+            MP -= energyTotal;
+            if (MP > maxMP) { MP = maxMP; }
+            //can't go above total or below 0.
+            if (MP < 0) { MP = 0; }
         }
 
         public void addStatus(string status)

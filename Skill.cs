@@ -15,6 +15,8 @@ namespace battleTest
         public string targetGroup; //enemies, allies, self
         public string targetNumber;//single, all
 
+        internal int currentTarget;
+
         public string description; //displayed on mouseover
         public string brand;    //offense, defense, support used by AI to determine
                                 //which skill to use
@@ -293,46 +295,62 @@ useAmmo(status) */
                 switch (targetGroup)
                 {
                     case "enemies":
-                        foreach (Character c in targets)
+                        for (int c = 0; c < targets.Count; c++)
                         {
+                            currentTarget = c;
                             int AC = accuracyCheck();
-                            if (c.team != user.team && AC > 0)
+                            if (targets[c].team != user.team && AC > 0)
                             {
-                                Combat.output(user.Name + " hits " + c.Name + " with " + Name);
+                                Combat.output(user.Name + " hits " + targets[c].Name + " with " + Name);
                                 float dmg = getDamage();
                                 if (AC == 2) { dmg = criticalHit(dmg); } //critical hit
-                                c.damage(dmg, element, false);
+                                targets[c].damage(dmg, element, false);
                             }
-                            else { Combat.output(user.Name + " missed " + c.Name + " with " + Name); }
+                            else { Combat.output(user.Name + " missed " + targets[c].Name + " with " + Name, textColor: System.Drawing.Color.BurlyWood); }
                         }
                         break;
+                          /*  foreach (Character c in targets)
+                            {
+                                int AC = accuracyCheck();
+                                if (c.team != user.team && AC > 0)
+                                {
+                                    Combat.output(user.Name + " hits " + c.Name + " with " + Name);
+                                    float dmg = getDamage();
+                                    if (AC == 2) { dmg = criticalHit(dmg); } //critical hit
+                                    c.damage(dmg, element, false);
+                                }
+                                else { Combat.output(user.Name + " missed " + c.Name + " with " + Name, textColor: System.Drawing.Color.BurlyWood); }
+                            }*/
 
                     case "allies":
-                        foreach (Character c in targets)
+                        for (int c = 0; c < targets.Count; c++)
                         {
+                            currentTarget = c;
                             int AC = accuracyCheck();
-                            if (c.team == user.team && c != user && AC > 0)
+                            if (targets[c].team == user.team && targets[c] != user && AC > 0)
                             {
-                                Combat.output(user.Name + " hits " + c.Name + " with " + Name);
+                                Combat.output(user.Name + " hits " + targets[c].Name + " with " + Name);
                                 float dmg = getDamage();
                                 if (AC == 2) { dmg = criticalHit(dmg); } //critical hit
-                                c.damage(dmg, element, false);
+                                targets[c].damage(dmg, element, false);
                             }
-                            else { Combat.output(user.Name + " missed " + c.Name + " with " + Name); }
+                            else { Combat.output(user.Name + " missed " + targets[c].Name + " with " + Name, textColor: System.Drawing.Color.BurlyWood); }
                         }
                         break;
 
                     case "self":
-                        foreach (Character c in targets)
+                        for (int c = 0; c < targets.Count; c++)
                         {
+                            currentTarget = c;
                             int AC = accuracyCheck();
-                            if (c == user && AC > 0)
+                            if (targets[c] == user && AC > 0)
                             {
-                                Combat.output(user.Name + " hits themselves with " + Name);
+                                Combat.output(user.Name + " hits themself with " + Name);
                                 float dmg = getDamage();
-                                if (AC == 2) { dmg = criticalHit(dmg); }
-                                c.damage(dmg, element, false);
+                                if (AC == 2) { dmg = criticalHit(dmg); } //critical hit
+                                targets[c].damage(dmg, element, false);
                             }
+                            else { Combat.output(user.Name + " missed themself with " + Name, textColor: System.Drawing.Color.BurlyWood); }
                         }
                         break;
 
@@ -391,10 +409,11 @@ useAmmo(status) */
             //drain that staminatotal from their current stamina
             if (user.MP >= staminaTotal)
             {
-                user.healEnergy((staminaTotal * -1), false);
+                //user.healEnergy((staminaTotal * -1), false);
+                user.useEnergy(staminaTotal);
                 return true;
             }
-            Combat.output(user.Name + " doesn't have enough stamina to use " + Name);
+            Combat.output(user.Name + " doesn't have enough stamina to use " + Name,underline: true,textColor:System.Drawing.Color.DimGray);
             return false;//not enough mp, return false
 
         }
@@ -402,7 +421,7 @@ useAmmo(status) */
         int accuracyCheck()
         {
             int check = 0;
-            float targetNum = ((user.tempAccuracy + accuracy)/targets[0].tempEvasion)*100f;
+            float targetNum = ((user.tempAccuracy + accuracy)/targets[currentTarget].tempEvasion)*100f;
             if (Combat.rollCheck((int)targetNum, 101)) { check = 1; }
             if (Combat.rollCheck((int)criticalRatio, 101)) { check = 2; }
             //roll for accuracy, return 1 if hit, 2 if crit            
@@ -414,18 +433,20 @@ useAmmo(status) */
            // float totalDamage = 0f;
             List<int> damageDice = Combat.rollDice(user.tempAttack, 10);
 
-            int successes = Combat.countSuccesses(damageDice,targets[0].tempDefense);
+            int successes = Combat.countSuccesses(damageDice,targets[currentTarget].tempDefense);
             //int dmg = Combat.rng.Next(minDamage, maxDamage + 1);
             float firstDamage = successes * (Combat.rng.Next(minDamage, maxDamage + 1));
-            float secondDamage = (firstDamage * user.tempAttack * user.tempAttack) / (user.tempAttack * targets[0].tempDefense);
+            float secondDamage = (firstDamage * user.tempAttack * user.tempAttack) / (user.tempAttack * targets[currentTarget].tempDefense);
             //roll for total damage - defense
-            return secondDamage;
+            float thirdDamage = resistDamage(secondDamage);
+            return thirdDamage;
         }
 
         float criticalHit(float dmg)
         {
-            Combat.output("SMAAAAASH!");
+            Combat.output("SMAAAAASH!",bold:true,underline:true, textColor:System.Drawing.Color.DarkOrange);
             float totalDamage = dmg * criticalDamage;
+            //Console.WriteLine("damage increased by crit from "+dmg.ToString()+" to "+(dmg * criticalDamage).ToString());
             return totalDamage;
         }
 
@@ -434,7 +455,7 @@ useAmmo(status) */
             float totalDamage = 0f;
             int resistance = 0;
             //get string of skills elemental type
-            foreach (KeyValuePair<string, int> resist in targets[0].resistances)
+            foreach (KeyValuePair<string, int> resist in targets[currentTarget].resistances)
             {
                 if (resist.Key == element)
                 {
@@ -442,7 +463,8 @@ useAmmo(status) */
                     //get the value of the resistance of the target
                 }
             }
-            totalDamage = dmg + (dmg * (resistance/100f));
+            totalDamage = dmg - (dmg * (resistance/100f));
+            //Console.WriteLine(dmg.ToString()+":"+(dmg * (resistance / 100f)).ToString() + " " + element + " dmg resisted");
             //check all of the targets resistances, edit dmg accordingly
             return totalDamage;
         }

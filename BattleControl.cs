@@ -130,7 +130,15 @@ namespace battleTest
         {
             currentCharacter = allCharacters[turnCounter];
             //Combat.output(allCharacters[turnCounter].activateStatus());
-            Combat.output("Beginning turn of " + currentCharacter.Name + "...");
+            if (currentCharacter.team == "player")
+            {
+                Combat.output("Beginning turn of " + currentCharacter.Name + "...", bold: true, textColor: System.Drawing.Color.DodgerBlue);
+            }
+            else
+            {
+                Combat.output("Beginning turn of " + currentCharacter.Name + "...", bold: true, textColor: System.Drawing.Color.Firebrick);
+
+            }
             currentCharacter.activateStatus("turn");
             currentCharacter.checkSkills();
             if (currentCharacter.behavior != null)

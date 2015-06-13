@@ -20,12 +20,52 @@ namespace battleTest
         static public void setForm(battle parentForm){
             battleForm = parentForm;
         }
-
+        /*
         static public void output(string outputString)
         {
-            battleForm.richTextBox1.Text += outputString+"\n";
-            //System.Threading.Thread.Sleep(1000);
+            battleForm.richTextBox1.SelectionColor = System.Drawing.Color.Black;
+            battleForm.richTextBox1.AppendText(outputString+"\n");
+        }*/
+
+        static public void output(string outputString, bool endLine = true, bool bold = false,
+            bool underline = false, System.Drawing.Color textColor = default(System.Drawing.Color))
+        {
+            if (!bold && !underline)
+            {
+                //not bolded or underlined - REGULAR
+                battleForm.richTextBox1.SelectionFont = new 
+                    System.Drawing.Font(battleForm.richTextBox1.SelectionFont, System.Drawing.FontStyle.Regular);
+            }
+            if (bold && !underline)
+            {
+                //bold text, but don't underline
+                battleForm.richTextBox1.SelectionFont = new 
+                    System.Drawing.Font(battleForm.richTextBox1.SelectionFont,System.Drawing.FontStyle.Bold); 
+            }
+            if (!bold && underline)
+            {
+                //underlined and not bold
+                battleForm.richTextBox1.SelectionFont = new 
+                    System.Drawing.Font(battleForm.richTextBox1.SelectionFont, System.Drawing.FontStyle.Underline);
+            }
+            if (bold && underline)
+            {
+                //BOLD AND UNDERLINE
+                battleForm.richTextBox1.SelectionFont = new 
+                    System.Drawing.Font(battleForm.richTextBox1.SelectionFont, System.Drawing.FontStyle.Underline |System.Drawing.FontStyle.Bold);
+            }
+            battleForm.richTextBox1.SelectionColor = textColor;
+            if (endLine) { battleForm.richTextBox1.AppendText(outputString + "\n"); }
+            else { battleForm.richTextBox1.AppendText(outputString); }
+            
         }
+        /*
+        static public void output(string outputString, System.Drawing.Color textColor)
+        {
+            battleForm.richTextBox1.SelectionColor = textColor;
+            battleForm.richTextBox1.AppendText(outputString+"\n");
+            battleForm.richTextBox1.SelectionColor = System.Drawing.Color.Black;
+        }*/
 
         static public float getDamage(float successes)
         {
